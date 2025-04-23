@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('identification')->unique();
+            $table->string('role')->default('citizen'); // Default role is 'citizen'
+            $table->string('passcode')->nullable(); // Optional passcode column for Chiefs
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
