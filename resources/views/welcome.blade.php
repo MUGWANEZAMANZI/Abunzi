@@ -77,7 +77,11 @@
                     </p>
                 </div>
             </section>
+            <div class="mt-20">
+                <livewire:aimbaza />
+            </div>
         </main>
+        
         <footer class="bg-blue-600 text-white text-center py-4">
             <p>&copy; {{ Date('Y') }} Abunzi. Uburenganiza burubahirizwa.</p>
         </footer>
