@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'title' => 'Ibirego Ugomba Gukemura',
+    'no_disputes' => 'Nta birego bihari',
+    'dispute_number' => 'Ikirego No: #:id',
+    'status' => 'Sitati',
+    'assigned_judge' => 'Abunzi cyahawe',
+    'offender' => 'Ushinjwa',
+    'complainant' => 'Urega',
+    'location' => 'Aho Icyaha cyabereye',
+    'details' => 'Ibigize Ikirego',
+    'hearing_date' => 'Umunsi wurubanza',
+    'end_meeting' => 'Inama irangiye',
+    'victim_resolution' => 'Icyifuzwa nuwareze',
+    'offender_resolution' => 'Icyifuzwa nuregwa',
+    'witnesses' => "Urutonde rw'abatangabuhamya",
+    'attendees' => 'Abitabiriye',
+    'justice_resolution' => 'Umwanzuro',
+    'evidence' => 'Ibimenyetso',
+    'ended_at' => 'Isaha yo gusoza',
+    'cancel' => 'Hagarika',
+    'confirm' => 'Emeza',
+    'meeting_concluded' => 'Dusoje inama kuri: :title',
+];

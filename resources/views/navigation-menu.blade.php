@@ -39,31 +39,31 @@
                                 <div class="w-60">
                                     <!-- Team Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Team') }}
+                                        {{ __('admin-nav.manage') }}
                                     </div>
 
                                     <!-- Team Settings -->
                                     <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
-                                        {{ __('Team Settings') }}
+                                        {{ __('admin-nav.settings') }}
                                     </x-dropdown-link>
 
                                     @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                                        <x-dropdown-link href="{{ route('teams.create') }}">
+                                        {{-- <x-dropdown-link href="{{ route('teams.create') }}">
                                             {{ __('Create New Team') }}
-                                        </x-dropdown-link>
+                                        </x-dropdown-link> --}}
                                     @endcan
 
                                     <!-- Team Switcher -->
                                     @if (Auth::user()->allTeams()->count() > 1)
                                         <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{-- <div class="block px-4 py-2 text-xs text-gray-400">
                                             {{ __('Switch Teams') }}
-                                        </div>
+                                        </div> --}}
 
-                                        @foreach (Auth::user()->allTeams() as $team)
+                                        {{-- @foreach (Auth::user()->allTeams() as $team)
                                             <x-switchable-team :team="$team" />
-                                        @endforeach
+                                        @endforeach --}}
                                     @endif
                                 </div>
                             </x-slot>
@@ -95,7 +95,7 @@
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                                {{ __('admin-nav.manage') }}
                             </div>
 
                             <x-dropdown-link href="{{ route('profile.show') }}">
@@ -116,7 +116,7 @@
 
                                 <x-dropdown-link href="{{ route('logout') }}"
                                          @click.prevent="$root.submit();">
-                                    {{ __('Log Out') }}
+                                    {{ __('admin-nav.logout') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
@@ -177,7 +177,7 @@
 
                     <x-responsive-nav-link href="{{ route('logout') }}"
                                    @click.prevent="$root.submit();">
-                        {{ __('Log Out') }}
+                        {{ __('admin-nav.logout') }}
                     </x-responsive-nav-link>
                 </form>
 
@@ -186,17 +186,17 @@
                     <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
                     <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Manage Team') }}
+                        {{ __('admin-nav.manage') }}
                     </div>
 
                     <!-- Team Settings -->
                     <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
-                        {{ __('Team Settings') }}
+                        {{ __('admin-nav.settings') }}
                     </x-responsive-nav-link>
 
                     @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
                         <x-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
-                            {{ __('Create New Team') }}
+                            {{-- {{ __('Create New Team') }} --}}
                         </x-responsive-nav-link>
                     @endcan
 
@@ -204,9 +204,9 @@
                     @if (Auth::user()->allTeams()->count() > 1)
                         <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
-                        <div class="block px-4 py-2 text-xs text-gray-400">
+                        {{-- <div class="block px-4 py-2 text-xs text-gray-400">
                             {{ __('Switch Teams') }}
-                        </div>
+                        </div> --}}
 
                         @foreach (Auth::user()->allTeams() as $team)
                             <x-switchable-team :team="$team" component="responsive-nav-link" />

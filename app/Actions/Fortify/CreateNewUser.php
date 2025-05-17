@@ -4,11 +4,19 @@ namespace App\Actions\Fortify;
 
 use App\Models\Team;
 use App\Models\User;
+/** This model was use to test seding opt passwords to user in registration, it was stoped beacuase sending sms was expensive and 
+ * the vonage logic was replace by twilio
+ */
+//use App\Models\PhoneVerification;
+use App\Notifications\SendSmsVerification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Notification;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+use App\Services\SmsNotificationService;
+
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -19,37 +27,61 @@ class CreateNewUser implements CreatesNewUsers
      *
      * @param  array<string, string>  $input
      */
+
+    protected SmsNotificationService $smsNotificationService;
+    public function __construct()
+    {
+        $this->smsNotificationService = app(SmsNotificationService::class);
+    }
+
+
     public function create(array $input): User
     {
         // Validate input fields
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'string', 'max:15', 'min:10', 'unique:users'],
             'identification' => ['required', 'string', 'max:16', 'min:16', 'unique:users'],
             'password' => $this->passwordRules(),
-            'passcode' => ['nullable', 'string'], 
+            'passcode' => ['nullable', 'string'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
         return DB::transaction(function () use ($input) {
-            // Check if the user is registering with a valid passcode for Chief role
+            // Check for chief passcode
             $isChief = isset($input['passcode']) && $input['passcode'] === env('CHIEF_PASSCODE', 'CHIEF2025');
-            
-            // Default role is 'citizen'; if chief passcode is provided, set role to 'chief'
             $role = $isChief ? 'chief' : 'citizen';
 
-            // Create the user
+            // Create user
             return tap(User::create([
                 'name' => $input['name'],
                 'email' => $input['email'],
+                'phone' => $input['phone'],
                 'identification' => $input['identification'],
                 'role' => $role,
                 'password' => Hash::make($input['password']),
             ]), function (User $user) use ($role) {
-                // If user is a Chief, allow them to create a team
+
+                // Step 1: Create team for chiefs
                 if ($role === 'chief') {
                     $this->createTeam($user);
                 }
+
+                /* Step 2: Generate and save phone verification code, not used for now
+                $code = rand(100000, 999999);
+                PhoneVerification::create([
+                    'user_id' => $user->id,
+                    'code' => $code,
+                ]);
+
+                // Step 3: Send SMS via Vonage
+                Notification::route('vonage', $user->phone)
+                ->notify(new SendSmsVerification($code, $user->name)); */
+
+                // Step 4: Send SMS via Twilio
+                $this->smsNotificationService->notifyRegistrationMessage($user->phone, $user->name);
+
             });
         });
     }
@@ -59,7 +91,6 @@ class CreateNewUser implements CreatesNewUsers
      */
     protected function createTeam(User $user): void
     {
-        // Create a personal team for the Chief
         $user->ownedTeams()->save(Team::forceCreate([
             'user_id' => $user->id,
             'name' => explode(' ', $user->name, 2)[0]."'s Team",

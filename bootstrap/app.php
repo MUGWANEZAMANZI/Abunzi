@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,10 +14,15 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
+            'locale' => \App\Http\Middleware\LocaleMiddleware::class, // Alias for specific routes
         ]);
-    })
-    ->withMiddleware(function (Middleware $middleware) {
-        //
+
+        $middleware->web([
+            // Add your global web middleware here if needed
+            // \App\Http\Middleware\AnotherMiddleware::class,
+        ]);
+
+        // Removed the call to routeMiddleware as it is not a valid method
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

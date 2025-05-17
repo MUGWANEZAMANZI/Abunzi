@@ -1,0 +1,23 @@
+<?php
+return [
+    'title' => 'Raporo',
+    'republic' => 'Repubulika y’u Rwanda',
+    'ministry' => "Minisiteri y'Ubutabera",
+    'report_title' => 'Raporo y’Umwanzuro w’Ikemurwa ry’Ikibazo',
+    'issue_title' => 'Umutwe w’ikibazo:',
+    'raiser' => 'Uwareze:',
+    'accused' => 'Uregwa:',
+    'location' => 'Aho ikibazo cyabereye:',
+    'meeting_datetime' => 'Itariki n’isaha y’inama:',
+    'raiser_wish' => 'Icyifuzo cy’uwatanze ikirego:',
+    'accused_wish' => 'Icyifuzo cy’uregwa:',
+    'witnesses' => 'Abatangabuhamya:',
+    'attendees' => 'Abitabiriye inama:',
+    'final_resolution' => 'Umwanzuro w’akanama gashinzwe ubutabera:',
+    'report_date' => 'Raporo yatunganyijwe:',
+    'prepared_by' => 'Abunzi bateguye raporo:',
+    'preparer' => 'Uwateguye Raporo',
+    'committee_lead' => 'Umuyobozi wa Komite',
+    'disclaimer' => 'Iyi raporo ni igihamya cyemewe cy’inama y’ubwunzi yabaye.',
+    'software_notice' => 'Raporo itunganyirizwa muri gahunda ya Leta, ishyigikiwe na Abunzi Software.',
+];

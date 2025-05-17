@@ -12,14 +12,21 @@ use App\Actions\Jetstream\UpdateTeamName;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
 
+
 class JetstreamServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
+
+
+   
     public function register(): void
     {
-        //
+        $this->app->singleton(
+            \Laravel\Jetstream\Contracts\AcceptsTeamInvitations::class,
+            \App\Actions\Jetstream\AcceptTeamInvitation::class
+        );
     }
 
     /**
@@ -36,6 +43,11 @@ class JetstreamServiceProvider extends ServiceProvider
         Jetstream::removeTeamMembersUsing(RemoveTeamMember::class);
         Jetstream::deleteTeamsUsing(DeleteTeam::class);
         Jetstream::deleteUsersUsing(DeleteUser::class);
+        
+        
+        
+
+
     }
 
     /**

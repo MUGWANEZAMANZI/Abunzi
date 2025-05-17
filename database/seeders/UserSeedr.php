@@ -18,11 +18,12 @@ class UserSeedr extends Seeder
 
         for ($i = 1; $i <= 20; $i++) {
             User::create([
-                'name' => "User $i",
-                'email' => "user$i@example.com",
-                'password' => Hash::make('password123'),
-                'identification' => 'ID' . str_pad($i, 14, '0', STR_PAD_LEFT),
-                'role' => $roles[array_rand($roles)],
+            'name' => "User $i",
+            'email' => "user$i@example.com",
+            'phone' => "0789" . str_pad($i, 7, '0', STR_PAD_LEFT),
+            'password' => Hash::make('password123'),
+            'identification' => uniqid(str_pad($i, 16, '0', STR_PAD_LEFT)),
+            'role' => $roles[array_rand($roles)],
             ]);
         }
     }

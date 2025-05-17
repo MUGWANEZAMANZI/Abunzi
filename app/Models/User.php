@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Interfaces\MustVerifyMobile;
+use App\Trait\MustVerifyMobile as IMustVerifyMobile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,8 +12,9 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\RoutesNotifications;
 
-class User extends Authenticatable
+class User extends Authenticatable //implements MustVerifyEmail
 {
     use HasApiTokens;
 
@@ -30,6 +33,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
         'identification',
         'role',
@@ -69,4 +73,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function routeNotificationForVonage($notification)
+{
+    return $this->phone;
+}
 }

@@ -13,11 +13,21 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('assignment_id')->constrained()->onDelete('cascade');
             $table->foreignId('dispute_id')->constrained()->onDelete('cascade');
-            $table->string('file_path');
-            $table->timestamp('generated_at')->useCurrent();
+            $table->text('victim_resolution')->nullable();
+            $table->text('offender_resolution')->nullable();
+            $table->text('witnesses')->nullable();
+            $table->text('attendees')->nullable();
+            $table->text('justice_resolution')->nullable();
+            $table->string('evidence_path')->nullable();
+            $table->timestamp('ended_at')->nullable();
             $table->timestamps();
         });
+
+
+
+        
     }
 
     /**

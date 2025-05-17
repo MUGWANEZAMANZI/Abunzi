@@ -16,9 +16,16 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('offender_name');
-            $table->enum('status', ['drafted', 'sent', 'assigned', 'resolved']);
+            $table->string('offender_phone')->nullable()->default(null);
+            $table->string('witness_name')->nullable()->default(null);
+            $table->string('province')->nullable()->default(null);
+            $table->string('district')->nullable()->default(null);
+            $table->string('sector')->nullable()->default(null);
+            $table->string('cell')->nullable()->default(null);
+            $table->string('village')->nullable()->default(null);
+            $table->enum('status', ['kirabitse', 'cyoherejwe', 'kizasomwa', 'cyakemutse']);
             $table->foreignId('citizen_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('location_id')->constrained()->onDelete('cascade');
+            $table->string('location_name'); // Changed from location_id to location_name
             $table->timestamps();
         });
     }

@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dispute extends Model
 {
-    protected $fillable = ['title', 'content', 'offender_name', 'status', 'citizen_id', 'location_id'];
+    
+    protected $fillable = ['title', 'content', 'offender_name','offender_phone','witness_name', 'province', 'district', 'sector', 'cell', 'village', 'status', 'citizen_id', 'location_name'];
 
     public function citizen() {
         return $this->belongsTo(User::class, 'citizen_id');
@@ -39,4 +40,10 @@ class Dispute extends Model
     public function report() {
         return $this->hasOne(Report::class);
     }
+    public function users()
+                                {
+    return $this->hasMany(User::class);
+}
+
+
 }

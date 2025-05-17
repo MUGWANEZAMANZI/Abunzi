@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'title' => 'Disputes You Must Resolve',
+    'no_disputes' => 'No disputes available',
+    'dispute_number' => 'Dispute No: #:id',
+    'status' => 'Status',
+    'assigned_judge' => 'Assigned Judge',
+    'offender' => 'Offender',
+    'complainant' => 'Complainant',
+    'location' => 'Location of the Offense',
+    'details' => 'Dispute Details',
+    'hearing_date' => 'Hearing Date',
+    'end_meeting' => 'End Meeting',
+    'victim_resolution' => "Complainant's Resolution",
+    'offender_resolution' => "Offender's Resolution",
+    'witnesses' => 'List of Witnesses',
+    'attendees' => 'Attendees',
+    'justice_resolution' => 'Final Resolution',
+    'evidence' => 'Evidence',
+    'ended_at' => 'End Time',
+    'cancel' => 'Cancel',
+    'confirm' => 'Confirm',
+    'meeting_concluded' => 'Meeting Concluded for: :title',
+];

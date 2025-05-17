@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'add_team_member' => 'Ongeramo Umwunzi mu Ikipe',
+    'add_team_member_description' => 'Ongeramo undi muntu mu Ikipe kugirango afatanye namwe.',
+    'enter_email' => 'Tanga aderesi ya imeli y’uwo ushaka kongeramo mu Ikipe.',
+    'email' => 'Imeli',
+    'role' => 'Inshingano',
+    'add' => 'Ongeramo',
+    'added' => 'Yongewemo.',
+    'pending_invitations' => 'Ubutumire butarasubizwa',
+    'pending_invitations_description' => 'Aba bantu batumiwe mu Ikipe kandi bohererejwe ubutumwa bwa imeli. Bashobora kwinjira bemeye ubutumire.',
+    'cancel' => 'Hagarika',
+    'team_members' => 'Abanyamuryango b’Ikipe',
+    'team_members_description' => 'Abantu bose bari mu Ikipe.',
+    'leave' => 'Sohoka',
+    'remove' => 'Kuramo',
+    'manage_role' => 'Hindura Inshingano',
+    'save' => 'Bika',
+    'cancel_action' => 'Hagarika',
+    'leave_team' => 'Gusohoka mu Ikipe',
+    'leave_team_confirmation' => 'Urashaka koko gusohoka muri Ikipe?',
+    'remove_member' => 'Kuramo Umwunzi',
+    'remove_member_confirmation' => 'Urashaka koko gukuramo uyu muntu mu Ikipe?',
+];

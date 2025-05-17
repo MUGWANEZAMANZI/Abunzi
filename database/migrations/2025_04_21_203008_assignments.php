@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('dispute_id')->constrained()->onDelete('cascade');
             $table->foreignId('justice_id')->constrained('users')->onDelete('cascade');
+            $table->dateTime("meeting_time", null);
             $table->enum('level', ['cell', 'sector']);
             $table->timestamps();
         });

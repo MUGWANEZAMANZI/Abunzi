@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'add_team_member' => 'Add Team Member',
+    'add_team_member_description' => 'Add a new team member to your team, allowing them to collaborate with you.',
+    'enter_email' => 'Please provide the email address of the person you would like to add to this team.',
+    'email' => 'Email',
+    'role' => 'Role',
+    'add' => 'Add',
+    'added' => 'Added.',
+    'pending_invitations' => 'Pending Team Invitations',
+    'pending_invitations_description' => 'These people have been invited to your team and have been sent an invitation email. They may join the team by accepting the email invitation.',
+    'cancel' => 'Cancel',
+    'team_members' => 'Team Members',
+    'team_members_description' => 'All of the people that are part of this team.',
+    'leave' => 'Leave',
+    'remove' => 'Remove',
+    'manage_role' => 'Manage Role',
+    'save' => 'Save',
+    'cancel_action' => 'Cancel',
+    'leave_team' => 'Leave Team',
+    'leave_team_confirmation' => 'Are you sure you would like to leave this team?',
+    'remove_member' => 'Remove Team Member',
+    'remove_member_confirmation' => 'Are you sure you would like to remove this person from the team?',
+];

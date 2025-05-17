@@ -15,6 +15,8 @@ use Laravel\Jetstream\Events\InvitingTeamMember;
 use Laravel\Jetstream\Jetstream;
 use Laravel\Jetstream\Mail\TeamInvitation;
 use Laravel\Jetstream\Rules\Role;
+use Log;
+
 
 class InviteTeamMember implements InvitesTeamMembers
 {
@@ -33,6 +35,15 @@ class InviteTeamMember implements InvitesTeamMembers
             'email' => $email,
             'role' => $role,
         ]);
+        
+        $user = User::where('email', $email)->first();
+        Log::info('User found: ', ['email' => $email]);
+
+        if ($user) {
+            $user->update([
+                'role' => 'justice',
+            ]);
+        }
 
         Mail::to($email)->send(new TeamInvitation($invitation));
     }

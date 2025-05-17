@@ -6,23 +6,23 @@
         <div class="mt-10 sm:mt-0">
             <x-form-section submit="addTeamMember">
                 <x-slot name="title">
-                    {{ __('Add Team Member') }}
+                    {{ __('invitation-team.add_team_member') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('Add a new team member to your team, allowing them to collaborate with you.') }}
+                    {{ __('invitation-team.add_team_member_description') }}
                 </x-slot>
 
                 <x-slot name="form">
                     <div class="col-span-6">
                         <div class="max-w-xl text-sm text-gray-600">
-                            {{ __('Please provide the email address of the person you would like to add to this team.') }}
+                            {{ __('invitation-team.enter_email') }}
                         </div>
                     </div>
 
                     <!-- Member Email -->
                     <div class="col-span-6 sm:col-span-4">
-                        <x-label for="email" value="{{ __('Email') }}" />
+                        <x-label for="email" value="{{ __('invitation-team.email') }}" />
                         <x-input id="email" type="email" class="mt-1 block w-full" wire:model="addTeamMemberForm.email" />
                         <x-input-error for="email" class="mt-2" />
                     </div>
@@ -30,7 +30,7 @@
                     <!-- Role -->
                     @if (count($this->roles) > 0)
                         <div class="col-span-6 lg:col-span-4">
-                            <x-label for="role" value="{{ __('Role') }}" />
+                            <x-label for="role" value="{{ __('invitation-team.role') }}" />
                             <x-input-error for="role" class="mt-2" />
 
                             <div class="relative z-0 mt-1 border border-gray-200 rounded-lg cursor-pointer">
@@ -39,22 +39,23 @@
                                                     wire:click="$set('addTeamMemberForm.role', '{{ $role->key }}')">
                                         <div class="{{ isset($addTeamMemberForm['role']) && $addTeamMemberForm['role'] !== $role->key ? 'opacity-50' : '' }}">
                                             <!-- Role Name -->
-                                            <div class="flex items-center">
-                                                <div class="text-sm text-gray-600 {{ $addTeamMemberForm['role'] == $role->key ? 'font-semibold' : '' }}">
-                                                    {{ $role->name }}
-                                                </div>
+                                        <div class="flex items-center">
+                                        <div class="text-sm text-gray-600 {{ $addTeamMemberForm['role'] == $role->key ? 'font-semibold' : '' }}">
+                                            {{ $this->getLocalizedRoleName($role) }}
+                                        </div>
 
-                                                @if ($addTeamMemberForm['role'] == $role->key)
-                                                    <svg class="ms-2 size-5 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                @endif
-                                            </div>
+                                        @if ($addTeamMemberForm['role'] == $role->key)
+                                            <svg class="ms-2 size-5 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        @endif
+                                    </div>
 
-                                            <!-- Role Description -->
-                                            <div class="mt-2 text-xs text-gray-600 text-start">
-                                                {{ $role->description }}
-                                            </div>
+                                    <!-- Role Description -->
+                                    <div class="mt-2 text-xs text-gray-600 text-start">
+                                        {{ $this->getLocalizedRoleDescription($role) }}
+                                    </div>
+
                                         </div>
                                     </button>
                                 @endforeach
@@ -65,11 +66,11 @@
 
                 <x-slot name="actions">
                     <x-action-message class="me-3" on="saved">
-                        {{ __('Added.') }}
+                        {{ __('invitation-team.added') }}
                     </x-action-message>
 
                     <x-button>
-                        {{ __('Add') }}
+                        {{ __('invitation-team.add') }}
                     </x-button>
                 </x-slot>
             </x-form-section>
@@ -83,11 +84,11 @@
         <div class="mt-10 sm:mt-0">
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Pending Team Invitations') }}
+                    {{ __('invitation-team.pending_invitations') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('These people have been invited to your team and have been sent an invitation email. They may join the team by accepting the email invitation.') }}
+                    {{ __('invitation-team.pending_invitations_description') }}
                 </x-slot>
 
                 <x-slot name="content">
@@ -101,7 +102,7 @@
                                         <!-- Cancel Team Invitation -->
                                         <button class="cursor-pointer ms-6 text-sm text-red-500 focus:outline-none"
                                                             wire:click="cancelTeamInvitation({{ $invitation->id }})">
-                                            {{ __('Cancel') }}
+                                            {{ __('invitation-team.cancel') }}
                                         </button>
                                     @endif
                                 </div>
@@ -120,11 +121,11 @@
         <div class="mt-10 sm:mt-0">
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Team Members') }}
+                    {{ __('invitation-team.team_members') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('All of the people that are part of this team.') }}
+                    {{ __('invitation-team.team_members_description') }}
                 </x-slot>
 
                 <!-- Team Member List -->
@@ -152,13 +153,13 @@
                                     <!-- Leave Team -->
                                     @if ($this->user->id === $user->id)
                                         <button class="cursor-pointer ms-6 text-sm text-red-500" wire:click="$toggle('confirmingLeavingTeam')">
-                                            {{ __('Leave') }}
+                                            {{ __('invitation-team.leave') }}
                                         </button>
 
                                     <!-- Remove Team Member -->
                                     @elseif (Gate::check('removeTeamMember', $team))
                                         <button class="cursor-pointer ms-6 text-sm text-red-500" wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
-                                            {{ __('Remove') }}
+                                            {{ __('invitation-team.remove') }}
                                         </button>
                                     @endif
                                 </div>
@@ -173,7 +174,7 @@
     <!-- Role Management Modal -->
     <x-dialog-modal wire:model.live="currentlyManagingRole">
         <x-slot name="title">
-            {{ __('Manage Role') }}
+            {{ __('invitation-team.manage_role') }}
         </x-slot>
 
         <x-slot name="content">
@@ -207,11 +208,11 @@
 
         <x-slot name="footer">
             <x-secondary-button wire:click="stopManagingRole" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
+                {{ __('invitation-team.cancel') }}
             </x-secondary-button>
 
             <x-button class="ms-3" wire:click="updateRole" wire:loading.attr="disabled">
-                {{ __('Save') }}
+                {{ __('invitation-team.save') }}
             </x-button>
         </x-slot>
     </x-dialog-modal>
@@ -219,20 +220,20 @@
     <!-- Leave Team Confirmation Modal -->
     <x-confirmation-modal wire:model.live="confirmingLeavingTeam">
         <x-slot name="title">
-            {{ __('Leave Team') }}
+            {{ __('invitation-team.leave_team') }}
         </x-slot>
 
         <x-slot name="content">
-            {{ __('Are you sure you would like to leave this team?') }}
+            {{ __('invitation-team.leave_team_confirmation') }}
         </x-slot>
 
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('confirmingLeavingTeam')" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
+                {{ __('invitation-team.cancel') }}
             </x-secondary-button>
 
             <x-danger-button class="ms-3" wire:click="leaveTeam" wire:loading.attr="disabled">
-                {{ __('Leave') }}
+                {{ __('invitation-team.leave') }}
             </x-danger-button>
         </x-slot>
     </x-confirmation-modal>
@@ -240,20 +241,20 @@
     <!-- Remove Team Member Confirmation Modal -->
     <x-confirmation-modal wire:model.live="confirmingTeamMemberRemoval">
         <x-slot name="title">
-            {{ __('Remove Team Member') }}
+            {{ __('invitation-team.remove_member') }}
         </x-slot>
 
         <x-slot name="content">
-            {{ __('Are you sure you would like to remove this person from the team?') }}
+            {{ __('invitation-team.remove_member_confirmation') }}
         </x-slot>
 
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('confirmingTeamMemberRemoval')" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
+                {{ __('invitation-team.cancel') }}
             </x-secondary-button>
 
             <x-danger-button class="ms-3" wire:click="removeTeamMember" wire:loading.attr="disabled">
-                {{ __('Remove') }}
+                {{ __('invitation-team.remove') }}
             </x-danger-button>
         </x-slot>
     </x-confirmation-modal>
