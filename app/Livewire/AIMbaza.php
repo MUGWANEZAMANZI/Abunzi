@@ -93,7 +93,7 @@ public function typePredictionCharacter()
         }
 
         $sample = [[$this->prompt]];
-        $model = PersistentModel::load(new ModelFilesystem(resource_path('Ai/legal-model.rbx')));
+        $model = PersistentModel::load(new ModelFilesystem(storage_path('app/legal-model.rbx')));
         $dataset = new Unlabeled($sample);
         $predictions = $model->predict($dataset);
         $result = mb_convert_encoding($predictions[0], 'UTF-8', from_encoding: 'UTF-8');
