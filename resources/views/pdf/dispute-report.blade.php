@@ -86,10 +86,22 @@
     <div class="section"><span class="label">{{ __('report.final_resolution') }}</span><div class="content bg-highlight">{{ $report->justice_resolution }}</div></div>
     <div class="section"><span class="label">{{ __('report.report_date') }}</span><div class="content">{{ now()->format('Y-m-d H:i') }}</div></div>
 
-    @php
-        $justiceUsers = $dispute->assignments->pluck('justice')->filter();
+    {{-- @php
+        $justiceUsers = $dispute->assignment->map(function ($assignment){
+            return $assignment->justice;
+        })->filter();
         $leadJustice = $justiceUsers->first();
-    @endphp
+    @endphp --}}
+
+
+            @php
+            $justiceUsers = $dispute->assignment->map(function ($assignment) {
+                return $assignment->justice;
+            })->filter();
+
+            $leadJustice = $justiceUsers->first();
+            @endphp
+
 
     @if($justiceUsers->count())
         <div class="section">

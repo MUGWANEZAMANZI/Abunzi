@@ -11,7 +11,7 @@ class DisputeReportController extends Controller
     {
         $dispute->load([
             'citizen',
-            'assignments.justice',
+            'assignment.justice',
             'report',
         ]);
 

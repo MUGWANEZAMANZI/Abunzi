@@ -27,7 +27,7 @@ class Justice extends Component
         'attendees' => '',
         'justice_resolution' => '',
         'ended_at' => '',
-        'offender_mail' => '',
+        //'offender_mail' => '',
         'complainant_phone' => '',
     ];
 
@@ -56,7 +56,7 @@ class Justice extends Component
 
         if ($assignment && $assignment->dispute) {
             $this->resetForm();
-            $this->form['offender_mail'] = $assignment->dispute->offender_mail ?? '';
+            //$this->form['offender_mail'] = $assignment->dispute->offender_mail ?? '';
             $this->form['complainant_phone'] = $assignment->dispute->citizen->phone ?? '';
         }
     }
@@ -76,7 +76,7 @@ class Justice extends Component
             'attendees' => '',
             'justice_resolution' => '',
             'ended_at' => '',
-            'offender_mail' => '',
+            //'offender_mail' => '',
             'complainant_phone' => '',
         ];
     }
@@ -93,7 +93,7 @@ class Justice extends Component
             'form.attendees' => 'nullable|string',
             'form.justice_resolution' => 'nullable|string',
             'form.ended_at' => 'nullable|date',
-            'form.offender_mail' => 'nullable|string|email',
+            //'form.offender_mail' => 'nullable|string|email',
             'form.complainant_phone' => 'nullable|string',
             'evidence' => 'nullable|file|max:10240',
         ]);
@@ -117,7 +117,7 @@ class Justice extends Component
             ]);
 
             $dispute->status = 'cyakemutse';
-            $dispute->offender_mail = $this->form['offender_mail'];
+            //$dispute->offender_mail = $this->form['offender_mail'];
             $dispute->save();
 
             if ($dispute->citizen) {
