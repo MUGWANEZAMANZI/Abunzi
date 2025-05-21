@@ -6,9 +6,9 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Assignment;
 use App\Models\Report;
-use App\Services\SmsNotificationService;
 use Illuminate\Support\Facades\DB;
-
+use App\Services\EmailNotificationService;
+use Illuminate\Support\Facades\Log;
 
 #[Title('Justice')]
 class Justice extends Component
@@ -18,6 +18,7 @@ class Justice extends Component
     public $TobeSolved = [];
     public $showModal = null;
     public $evidence;
+    public $assignment;
 
     public $form = [
         'victim_resolution' => '',
@@ -26,19 +27,22 @@ class Justice extends Component
         'attendees' => '',
         'justice_resolution' => '',
         'ended_at' => '',
-        'offender_phone' => '',
+        'offender_mail' => '',
         'complainant_phone' => '',
     ];
 
-    //rotected SmsNotificationService $smsService;
+    protected EmailNotificationService $emailService;
 
-     public function mount()
+    public function __construct()
     {
-        $this->smsService = app(SmsNotificationService::class);
+        $this->emailService = app(EmailNotificationService::class);
+    }
 
+    public function mount()
+    {
         $justiceId = auth()->user()->id;
 
-        $this->TobeSolved = Assignment::with(['dispute.citizen', 'justice'])
+        $this->TobeSolved = Assignment::with(['dispute', 'dispute.citizen', 'justice'])
             ->where('justice_id', $justiceId)
             ->whereHas('dispute', function ($query) {
                 $query->where('status', 'kizasomwa');
@@ -58,7 +62,7 @@ class Justice extends Component
             $this->form['attendees'] = '';
             $this->form['justice_resolution'] = '';
             $this->form['ended_at'] = '';
-            $this->form['offender_phone'] = $assignment->dispute->offender_phone ?? '';
+            $this->form['offender_mail'] = $assignment->dispute->offender_mail ?? '';
             $this->form['complainant_phone'] = $assignment->dispute->citizen->phone ?? '';
         }
     }
@@ -73,7 +77,6 @@ class Justice extends Component
         $assignment = Assignment::with(['dispute.citizen'])->findOrFail($assignmentId);
         $dispute = $assignment->dispute;
 
-        // Validate form (add your validation rules as needed)
         $this->validate([
             'form.victim_resolution' => 'nullable|string',
             'form.offender_resolution' => 'nullable|string',
@@ -81,20 +84,17 @@ class Justice extends Component
             'form.attendees' => 'nullable|string',
             'form.justice_resolution' => 'nullable|string',
             'form.ended_at' => 'nullable|date',
-            'form.offender_phone' => 'nullable|string',
+            'form.offender_mail' => 'nullable|string|email',
             'form.complainant_phone' => 'nullable|string',
-            'evidence' => 'nullable|file|max:10240', // max 10MB
+            'evidence' => 'nullable|file|max:10240',
         ]);
 
-        // Save evidence file if uploaded
         $evidencePath = null;
         if ($this->evidence) {
             $evidencePath = $this->evidence->store('evidences', 'public');
         }
 
-        // Use transaction to safely update related models
         DB::transaction(function () use ($assignment, $dispute, $evidencePath) {
-            // Update Report
             Report::create([
                 'assignment_id' => $assignment->id,
                 'dispute_id' => $dispute->id,
@@ -107,39 +107,50 @@ class Justice extends Component
                 'ended_at' => $this->form['ended_at'],
             ]);
 
-            // Update dispute status
             $dispute->status = 'cyakemutse';
-
-            // Update offender phone directly on dispute
-            $dispute->offender_phone = $this->form['offender_phone'];
+            $dispute->offender_mail = $this->form['offender_mail'];
             $dispute->save();
 
-            // Update complainant phone on the linked citizen (user)
             if ($dispute->citizen) {
                 $dispute->citizen->phone = $this->form['complainant_phone'];
                 $dispute->citizen->save();
             }
         });
 
-        // Send SMS notifications
-        $smsService = app(SmsNotificationService::class);
-        $this->smsService->notifyDisputeResolved(
-            [
-                'phone' => $this->form['offender_phone'],
-                'name' => $assignment->dispute->offender_name,
-            ],
-            [
-                'phone' => $this->form['complainant_phone'],
-                'name' => $assignment->dispute->citizen->name,
-            ],
-            $this->form['justice_resolution']
-        );
+        // Reload updated data to ensure correct values
+        $updatedDispute = Assignment::with('dispute.citizen')->find($assignmentId)->dispute;
+
+        // Logging for debugging
+        Log::info('logging', [
+            'offender_email' => $updatedDispute->offender_mail,
+            'citizen_email' => $updatedDispute->citizen->email,
+        ]);
+
+        // Send email only if both addresses are present
+        if (!empty($updatedDispute->offender_mail) && !empty($updatedDispute->citizen->email)) {
+            $this->emailService->notifyDisputeResolved(
+                [
+                    'email' => $updatedDispute->offender_mail,
+                    'name' => $updatedDispute->offender_name,
+                ],
+                [
+                    'email' => $updatedDispute->citizen->email,
+                    'name' => $updatedDispute->citizen->name,
+                ],
+                $this->form['justice_resolution'],
+                $assignment->dispute_id
+            );
+        } else {
+            Log::error('Email send skipped due to missing email', [
+                'offender_email' => $updatedDispute->offender_mail,
+                'citizen_email' => $updatedDispute->citizen->email,
+            ]);
+        }
 
         session()->flash('message', 'Raporo yoherejwe neza.');
         $this->closeModal();
 
-        // Refresh list to get updated status
-        $this->mount();
+        $this->mount(); // refresh list
     }
 
     public function render()

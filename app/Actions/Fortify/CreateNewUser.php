@@ -9,13 +9,15 @@ use App\Models\User;
  */
 //use App\Models\PhoneVerification;
 use App\Notifications\SendSmsVerification;
+use App\Services\EmailNotificationService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
-use App\Services\SmsNotificationService;
+//use App\Services\SmsNotificationService;
+use Illuminate\Mail;
 
 
 class CreateNewUser implements CreatesNewUsers
@@ -28,10 +30,12 @@ class CreateNewUser implements CreatesNewUsers
      * @param  array<string, string>  $input
      */
 
-    protected SmsNotificationService $smsNotificationService;
+    //protected SmsNotificationService $smsNotificationService;
+    protected EmailNotificationService $mailNotificationService;
     public function __construct()
     {
-        $this->smsNotificationService = app(SmsNotificationService::class);
+        //$this->smsNotificationService = app(SmsNotificationService::class);
+        $this->mailNotificationService = app(EmailNotificationService::class);
     }
 
 
@@ -80,7 +84,8 @@ class CreateNewUser implements CreatesNewUsers
                 ->notify(new SendSmsVerification($code, $user->name)); */
 
                 // Step 4: Send SMS via Twilio
-                $this->smsNotificationService->notifyRegistrationMessage($user->phone, $user->name);
+                //$this->smsNotificationService->notifyRegistrationMessage($user->phone, $user->name);
+                $this->mailNotificationService->notifyRegistrationMessage($user->name, $user->email);
 
             });
         });

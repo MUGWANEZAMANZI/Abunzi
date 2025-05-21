@@ -101,9 +101,10 @@
             </div>
 
             <div>
-                <label class="block text-white mb-1 text-sm sm:text-base">{{ __('ikirego.phone') }}</label>
-                <input type="tel" name="offender_phone" wire:model="offender_phone" class="h-8 sm:h-10 rounded-md w-full px-2 text-sm sm:text-base" placeholder="+250...">
-                @error('offender_phone') <span class="text-red-500 text-xs sm:text-sm">{{ $message }}</span> @enderror
+                <label class="block text-white mb-1 text-sm sm:text-base">{{ __('ikirego.mail') }}</label>
+                <input type="email" name="offender_mail" wire:model.live="offender_mail" class="h-8 sm:h-10 rounded-md w-full px-2 text-sm sm:text-base" placeholder="Andika imeli y'uwo urega">
+                @error('offender_mail') <span class="text-red-500 text-xs sm:text-sm">{{ $message }}</span> @enderror
+                <p>Current email: {{ $offender_mail }}</p>
             </div>
 
             <div>

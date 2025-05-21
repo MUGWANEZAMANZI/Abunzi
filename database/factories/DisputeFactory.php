@@ -20,6 +20,7 @@ class DisputeFactory extends Factory
             'title' => $this->faker->sentence,
             'content' => $this->faker->paragraph,
             'offender_name' => $this->faker->name,
+            'offender_mail' => $this->faker->email,
             'witness_name' => $this->faker->name,
             'province' => $this->faker->state,
             'district' => $this->faker->city,

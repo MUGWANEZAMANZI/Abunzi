@@ -10,7 +10,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Log;
 use App\Models\Assignment;
-use App\Services\SmsNotificationService;
+//use App\Services\SmsNotificationService;
+use App\Services\EmailNotificationService;
 
 #[Title('Umwunzi mukuru')]
 class Chief extends Component
@@ -48,10 +49,11 @@ class Chief extends Component
 
 
 
-    protected SmsNotificationService $smsService;
+    //protected SmsNotificationService $smsService;
     public function __construct()
     {
-        $this->smsService = app(SmsNotificationService::class);
+        //$this->smsService = app(SmsNotificationService::class);
+        $this->emailService = app(EmailNotificationService::class);
     }
     public function mount()
     {
@@ -120,19 +122,34 @@ class Chief extends Component
             ]);
 
             // Send SMS notifications
-            $smsService = new SmsNotificationService();
-           $this->smsService->notifyDisputeAssigned(
-                [
-                    'phone' => $this->selectedDispute->offender->phone,
-                    'name' => $this->selectedDispute->offender->name,
-                ],
-                [
-                    'phone' => $this->selectedDispute->citizen->phone,
-                    'name' => $this->selectedDispute->citizen->name,
-                ],
-                $this->meetingDate,
-                'Akagarri ka wa ' . $this->selectedDispute->cell->name
-            );
+            //Send email notifications
+                $venue = 'Akagari ka ' . $this->selectedDispute->cell;
+
+    foreach ($this->assignedJustices as $justiceId) {
+    $justice = User::find($justiceId);
+    if ($justice) {
+        $this->emailService->notifyDisputeAssigned(
+            [
+                'email' => $this->selectedDispute->offender_mail,
+                'name'  => $this->selectedDispute->offender_name,
+            ],
+            [
+                'email' => $this->selectedDispute->citizen->email,
+                'name'  => $this->selectedDispute->citizen->name,
+            ],
+            [
+                'email' => $justice->email,
+                'name'  => $justice->name,
+            ],
+            $this->meetingDate,
+            $venue,
+            $this->selectedDispute->title,
+            $this->selectedDispute->id
+        );
+    }
+}
+
+
 
             $this->loadDisputes();
             session()->flash('message', 'Dispute assigned successfully!');

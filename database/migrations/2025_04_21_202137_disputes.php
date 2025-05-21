@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('offender_name');
-            $table->string('offender_phone')->nullable()->default(null);
+            $table->string('offender_mail')->nullable()->default(null);
             $table->string('witness_name')->nullable()->default(null);
             $table->string('province')->nullable()->default(null);
             $table->string('district')->nullable()->default(null);

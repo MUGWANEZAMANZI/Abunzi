@@ -11,7 +11,7 @@ return [
     'cell' => 'Cell',
     'village' => 'Village',
     'description' => 'Description',
-    'phone' => 'Phone',
+    'mail' => 'Email',
     'witness' => 'Witnesses',
     'offender' => 'Offender',
     'save' => 'Submit',

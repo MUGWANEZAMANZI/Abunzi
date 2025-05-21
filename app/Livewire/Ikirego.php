@@ -2,11 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Services\EmailNotificationService;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
 use App\Models\Dispute;
 use Illuminate\Support\Facades\Log;
-use App\Services\SmsNotificationService; // Make sure this service exists and works
+use Illuminate\Mail;
+use Illuminate\Support\Facades\Auth;
+//use App\Services\SmsNotificationService; // Make sure this service exists and works
 
 class Ikirego extends Component
 {
@@ -31,8 +34,9 @@ class Ikirego extends Component
 
     // Basic phone format validation example - adjust regex as needed
     #[Validate('required', message: 'Andika telefoni y\'uwo urega')]
-    #[Validate('regex:/^\+250[0-9]{9}$/', message: 'Nimero ya telefoni igomba kuba itangiye na +250 igakurikirwa n\'imibare 9')]
-    public $offender_phone;
+    //#[Validate('regex:/^\+250[0-9]{9}$/', message: 'Nimero ya telefoni igomba kuba itangiye na +250 igakurikirwa n\'imibare 9')]
+    #[Validate('email', message: 'Andika email y\'uwo urega')]
+    public $offender_mail;
 
     #[Validate('required', message: 'Andika ibikubiye mu ikirego')]
     #[Validate('min:20', message: 'Ibikubiye mu ikirego bigomba kuba bifite nibura inyuguti 20')]
@@ -51,7 +55,8 @@ class Ikirego extends Component
     public bool $isEditing = false; // Flag to indicate if we are editing an existing draft
     public bool $isClosed = false; // Flag to control modal visibility
 
-    protected SmsNotificationService $smsService;
+    //protected SmsNotificationService $smsService;
+    protected EmailNotificationService $emailService;
 
     // Constructor is less common in Livewire 3+, prefer mount().
     // If you need to inject services, use dependency injection directly in the methods or mount.
@@ -59,11 +64,18 @@ class Ikirego extends Component
     public function __construct()
     {
         // Ensure the service is bound in Laravel's service container
-        $this->smsService = app(SmsNotificationService::class);
+        //$this->smsService = app(SmsNotificationService::class);
+        $this->emailService = app(EmailNotificationService::class);
+        
     }
 
     public function mount($dispute_id = null)
     {
+
+
+        //Loading current user
+        $this->user = auth()->user();
+
         Log::info('Ikirego Component Mounted', ['dispute_id' => $dispute_id]);
         // Load locations data when the component mounts
         $this->loadLocations();
@@ -203,7 +215,7 @@ class Ikirego extends Component
             $this->dispute_id = $id;
             $this->title = $dispute->title;
             $this->offender = $dispute->offender_name;
-            $this->offender_phone = $dispute->offender_phone;
+            $this->offender_mail = $dispute->offender_mail;
             $this->content = $dispute->content;
             $this->witness = $dispute->witness_name;
 
@@ -254,15 +266,20 @@ class Ikirego extends Component
 
 
     // Handles submitting the dispute
+
+
+    
+
     public function save()
     {
         Log::info('Attempting to save dispute (send)');
+        Log::info('Before validation', ['offender_mail' => $this->offender_mail]);
         try {
             // Validate all fields including the selected village
             $this->validate([
                  'title' => $this->getRules()['title'],
                  'offender' => $this->getRules()['offender'],
-                 'offender_phone' => $this->getRules()['offender_phone'],
+                 'offender_mail' => 'required|email',
                  'content' => $this->getRules()['content'],
                  'witness' => $this->getRules()['witness'],
                  'selectedProvince' => 'required', // Add validation for location levels
@@ -303,25 +320,35 @@ class Ikirego extends Component
                 $dispute = Dispute::create($data);
                 Log::info('New dispute created', ['dispute_id' => $dispute->id]);
                 $this->dispute_id = $dispute->id; // Set ID after creation
+                Log::info('Offender email', [$this->offender_mail]);
 
 
                 // Notify via SMS
                 try {
-                    $sent = $this->smsService->notifyDisputeCreated(
-                        $this->offender_phone,
-                        $this->offender,                        
-                         $this->title, // Pass dispute ID if needed for SMS message
-                    );
+                    // $sent = $this->smsService->notifyDisputeCreated(
+                    //     $this->offender_phone,
+                    //     $this->offender,                        
+                    //      $this->title, // Pass dispute ID if needed for SMS message
+                    // );
 
-                    if (!$sent) {
-                        Log::warning('SMS notification failed', ['phone' => $this->offender_phone]);
-                        session()->flash('warning', 'Ikirego cyoherejwe ariko ubutumwa bwa SMS ntibwagezeyo.');
-                    } else {
-                        Log::info('SMS notification sent', ['phone' => $this->offender_phone]);
-                    }
-                } catch (\Exception $smsException) {
-                     Log::error('SMS sending failed', ['exception' => $smsException->getMessage()]);
-                     session()->flash('warning', 'Ikirego cyoherejwe ariko habaye ikibazo mu kohereza ubutumwa bwa SMS.');
+                    // if (!$sent) {
+                    //     Log::warning('SMS notification failed', ['phone' => $this->offender_phone]);
+                    //     session()->flash('warning', 'Ikirego cyoherejwe ariko ubutumwa bwa SMS ntibwagezeyo.');
+                    // } else {
+                    //     Log::info('SMS notification sent', ['phone' => $this->offender_phone]);
+                    // }
+                    //Log::info($this->user->email);
+                    //Log::info($this->user->name);
+                    $this->emailService->notifyDisputeCreated(
+                    auth()->user()->email, 
+                    auth()->user()->name,
+                   $this->title
+                );
+
+
+                } catch (\Exception $mailException) {
+                     Log::error('Email sending failed', ['exception' => $mailException->getMessage()]);
+                     session()->flash('warning', 'Ikirego cyoherejwe ariko habaye ikibazo mu kohereza ubutumwa bwa Imeli.');
                 }
 
             }
@@ -370,7 +397,7 @@ class Ikirego extends Component
             $data = $this->prepareData('kirabitse');
              // Ensure non-required fields are included if they have values, but don't fail validation if empty
              $data['offender_name'] = $this->offender;
-             $data['offender_phone'] = $this->offender_phone;
+             $data['offender_mail'] = $this->offender_mail;
              $data['content'] = $this->content;
              $data['witness_name'] = $this->witness;
 
@@ -468,7 +495,7 @@ class Ikirego extends Component
         $data = [
             'title' => $this->title,
             'offender_name' => $this->offender,
-            'offender_phone' => $this->offender_phone,
+            'offender_mail' => $this->offender_mail,
             'content' => $this->content,
             'witness_name' => $this->witness,
             'location_name' => $locationPath, // Store the full path string
@@ -489,7 +516,7 @@ class Ikirego extends Component
     {
         Log::info('Resetting form');
         $this->reset([
-            'title', 'offender', 'offender_phone', 'content', 'witness',
+            'title', 'offender', 'offender_mail', 'content', 'witness',
             'selectedProvince', 'selectedDistrict', 'selectedSector',
             'selectedCell', 'selectedVillage',
              // Reset location arrays to hide dependent dropdowns
@@ -516,7 +543,7 @@ class Ikirego extends Component
          return [
              'title' => 'required|string|min:10|max:100',
              'offender' => 'required|string',
-             'offender_phone' => 'required|regex:/^\+250[0-9]{9}$/', // Example regex for Rwandan numbers
+             'offender_mail' => 'required|email',
              'content' => 'required|string|min:20|max:500',
              'witness' => 'required|string', // Keep required based on attribute, or change if optional
              // Location fields are validated directly in save/draft methods
