@@ -21,3 +21,8 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+
+!storage/app/
+!storage/app/legal-model.rbx
+!storage/app/dataset-all.csv

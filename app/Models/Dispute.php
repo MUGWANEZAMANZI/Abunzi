@@ -25,8 +25,8 @@ class Dispute extends Model
         return $this->hasMany(File::class);
     }
 
-    public function assignments() {
-        return $this->hasMany(Assignment::class);
+    public function assignment() {
+        return $this->hasOne(Assignment::class);
     }
 
     public function meeting() {

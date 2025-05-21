@@ -42,12 +42,11 @@ class Justice extends Component
     {
         $justiceId = auth()->user()->id;
 
-        $this->TobeSolved = Assignment::with(['dispute', 'dispute.citizen', 'justice'])
+        $this->TobeSolved = Assignment::with(['dispute.citizen', 'justice'])
             ->where('justice_id', $justiceId)
-            ->whereHas('dispute', function ($query) {
-                $query->where('status', 'kizasomwa');
-            })
+            ->whereHas('dispute', fn ($q) => $q->where('status', 'kizasomwa'))
             ->get();
+
     }
 
     public function openModal($assignmentId)
@@ -56,12 +55,7 @@ class Justice extends Component
         $assignment = $this->TobeSolved->firstWhere('id', $assignmentId);
 
         if ($assignment && $assignment->dispute) {
-            $this->form['victim_resolution'] = '';
-            $this->form['offender_resolution'] = '';
-            $this->form['witnesses'] = '';
-            $this->form['attendees'] = '';
-            $this->form['justice_resolution'] = '';
-            $this->form['ended_at'] = '';
+            $this->resetForm();
             $this->form['offender_mail'] = $assignment->dispute->offender_mail ?? '';
             $this->form['complainant_phone'] = $assignment->dispute->citizen->phone ?? '';
         }
@@ -69,7 +63,22 @@ class Justice extends Component
 
     public function closeModal()
     {
-        $this->reset(['showModal', 'form', 'evidence']);
+        $this->reset(['showModal', 'evidence']);
+        $this->resetForm();
+    }
+
+    protected function resetForm()
+    {
+        $this->form = [
+            'victim_resolution' => '',
+            'offender_resolution' => '',
+            'witnesses' => '',
+            'attendees' => '',
+            'justice_resolution' => '',
+            'ended_at' => '',
+            'offender_mail' => '',
+            'complainant_phone' => '',
+        ];
     }
 
     public function submitResolution($assignmentId)
@@ -121,13 +130,13 @@ class Justice extends Component
         $updatedDispute = Assignment::with('dispute.citizen')->find($assignmentId)->dispute;
 
         // Logging for debugging
-        Log::info('logging', [
+        Log::info('Dispute resolved. Attempting to notify:', [
             'offender_email' => $updatedDispute->offender_mail,
-            'citizen_email' => $updatedDispute->citizen->email,
+            'citizen_email' => $updatedDispute->citizen->email ?? null,
         ]);
 
         // Send email only if both addresses are present
-        if (!empty($updatedDispute->offender_mail) && !empty($updatedDispute->citizen->email)) {
+        if (!empty($updatedDispute->offender_mail) && !empty($updatedDispute->citizen?->email)) {
             $this->emailService->notifyDisputeResolved(
                 [
                     'email' => $updatedDispute->offender_mail,
@@ -141,9 +150,9 @@ class Justice extends Component
                 $assignment->dispute_id
             );
         } else {
-            Log::error('Email send skipped due to missing email', [
+            Log::error('Email notification skipped due to missing address.', [
                 'offender_email' => $updatedDispute->offender_mail,
-                'citizen_email' => $updatedDispute->citizen->email,
+                'citizen_email' => $updatedDispute->citizen->email ?? null,
             ]);
         }
 
