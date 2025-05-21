@@ -7,12 +7,15 @@ use Illuminate\Support\Facades\Log;
 
 class EmailNotificationService
 {
-    public function notifyDisputeCreated(string $email, string $name, string $disputeTitle): bool
+    public function notifyDisputeCreated(array $offender, array $user, string $disputeTitle): bool
     {
         $subject = 'Ikirego Cyashyizwe muri Sisitemu';
-        $body = "Muraho {$name}, ikirego cyanyu '{$disputeTitle}' cyoherejwe mu rwego rw'Abunzi. Muzamenyeshwa igihe kizasomerwa.";
+        $victimBody = "Muraho {$user['name']}, ikirego cyanyu '{$disputeTitle}' cyoherejwe mu rwego rw'Abunzi. Muzamenyeshwa igihe kizasomerwa.";
+        $offenderBody =  "Muraho {$offender['name']}, Mwarezwe na '{$user['name']}' mu kirego '{$disputeTitle}' muzamenyeshwa igihe kizasomerwa, ikirego cyoherejwe mu rwego rw'Abunzi. Murakoze!";
 
-        return $this->sendMail($email, $subject, $body);
+        $sent1 = $this->sendMail($offender['email'], $subject, $offenderBody);
+        $sent2 = $this->sendMail($user['email'], $subject, $victimBody);
+        return $sent1 && $sent2;
     }
 
    public function notifyDisputeAssigned(array $offender, array $victim, array $justice, string $meetingDate, string $venue, string $title, int $no): bool

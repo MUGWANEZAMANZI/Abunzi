@@ -11,7 +11,7 @@ return [
     'cell' => 'Akagari',
     'village' => 'Umudugudu',
     'description' => 'Ibisobanuro',
-    'mail' => 'Imeli',
+    'mail' => 'Imeli y\'uregwa',
     'witness' => 'Ababibonye',
     'offender' => 'Uregwa',
     'save' => 'Ohereza',
