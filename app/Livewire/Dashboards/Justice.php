@@ -27,7 +27,7 @@ class Justice extends Component
         'attendees' => '',
         'justice_resolution' => '',
         'ended_at' => '',
-        'offender_mail' => '',
+        //'offender_mail' => '',
         'complainant_phone' => '',
     ];
 
@@ -56,7 +56,7 @@ class Justice extends Component
 
         if ($assignment && $assignment->dispute) {
             $this->resetForm();
-            $this->form['offender_mail'] = $assignment->dispute->offender_mail ?? '';
+            //$this->form['offender_mail'] = $assignment->dispute->offender_mail ?? '';
             $this->form['complainant_phone'] = $assignment->dispute->citizen->phone ?? '';
         }
     }
@@ -117,7 +117,7 @@ class Justice extends Component
             ]);
 
             $dispute->status = 'cyakemutse';
-            $dispute->offender_mail = $this->form['offender_mail'];
+            //$dispute->offender_mail = $this->form['offender_mail'];
             $dispute->save();
 
             if ($dispute->citizen) {
