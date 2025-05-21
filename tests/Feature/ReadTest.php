@@ -13,7 +13,7 @@ class ReadTest extends TestCase
      */
     public function test_example(): void
     {
-        $csvFile = storage_path('app/dataset-kiny.csv');
+        $csvFile = storage_path('app/dataset-all.csv');
         $handle = fopen($csvFile, 'r');
     
         // Auto-detect delimiter from first line
