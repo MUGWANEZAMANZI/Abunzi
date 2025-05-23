@@ -19,9 +19,13 @@ A Laravel application for digitizing local dispute resolution.
 ## Tech Stack
 
 - **Backend:** [Laravel](https://laravel.com/) (PHP)
-- **Frontend:** Blade Templates
+- **Frontend:** Blade Templates, [Livewire](https://laravel-livewire.com/)
 - **Machine Learning:** [Rubix ML](https://rubixml.com/)
 - **Database:** MySQL/PostgreSQL
+
+## Architecture
+
+This project follows the MVC (Model-View-Controller) pattern to ensure a clean separation of concerns. Each view is paired with a corresponding controller and model, making the codebase organized and maintainable. For live and dynamic content, the application leverages Livewire, enabling real-time updates and interactive user experiences directly within Blade templates—without leaving the Laravel ecosystem.
 
 ## Getting Started
 
@@ -60,6 +64,66 @@ A Laravel application for digitizing local dispute resolution.
     php artisan serve
     ```
 
+---
+
+## Local Network Access & Exposing the App
+
+To allow other devices on your local network to access your Laravel app, you need to bind the PHP and npm servers to 0.0.0.0 and use your local machine's IP address.
+
+### 1. Find Your Local IP Address
+
+On Windows, open Command Prompt and run:
+
+```cmd
+ipconfig
+```
+
+Look for the line under your active network adapter that says `IPv4 Address`. It will look something like `192.168.1.10`.
+
+### 2. Serve Laravel on All Network Interfaces
+
+Instead of the default localhost, run:
+
+```bash
+php artisan serve --host=0.0.0.0 --port=8000
+```
+
+Now, your app is accessible on your local network at:
+```
+http://<your-ip>:8000 usually hhtp://127.0.0.1:8000
+```
+Replace `<your-ip>` with the IPv4 address you found earlier (e.g., http://172.31.1.10:8000).
+
+### 3. Serve Vite (npm) on All Network Interfaces
+
+If your frontend uses Vite (default for Laravel 9+):
+
+```bash
+npm run dev -- --host 0.0.0.0
+```
+or if using older NPM scripts:
+```bash
+npm run dev -- --host=0.0.0.0
+```
+
+This ensures hot reloading and assets are also served on your network IP.
+
+### 4. Access from Another Device
+
+On another device connected to the same WiFi or network, open a browser and navigate to:
+
+```
+http://<your-ip>:8000
+```
+
+You should see your Laravel application!
+
+**Note:**  
+- Make sure your firewall allows inbound connections on port 8000.
+- For production or public access, use a proper web server (like Nginx or Apache) and secure your app.
+
+---
+
 ## Usage
 
 - Register or log in.
@@ -72,20 +136,5 @@ A Laravel application for digitizing local dispute resolution.
 - Rubix ML is used for predictions.
 - Ensure models are trained and saved in the correct storage path.
 - Refer to [Rubix ML docs](https://rubixml.com/docs/) for training/updating models.
-
-## Contributing
-
-Contributions welcome!  
-Fork, create a branch, commit, and open a pull request.
-
-## License
-
-MIT License.
-
-## Contact
-
-Open an issue or reach out [on GitHub](https://github.com/MUGWANEZAMANZI).
-
----
 
 *For detailed guides, see the [Laravel Docs](https://laravel.com/docs/) and [Rubix ML Docs](https://rubixml.com/docs/).*
