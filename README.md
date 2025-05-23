@@ -51,9 +51,12 @@ Let me know if you’d like this merged with your existing text or need further 
 - **Machine Learning:** [Rubix ML](https://rubixml.com/)
 - **Database:** MySQL/PostgreSQL
 
-## Architecture
+**#Architecture**
+This project follows the MVC (Model-View-Controller) pattern to ensure a clean separation of concerns. Each view is paired with a corresponding controller and model, making the codebase organized and maintainable.
 
-This project follows the MVC (Model-View-Controller) pattern to ensure a clean separation of concerns. Each view is paired with a corresponding controller and model, making the codebase organized and maintainable. For live and dynamic content, the application leverages Livewire, enabling real-time updates and interactive user experiences directly within Blade templates—without leaving the Laravel ecosystem.
+The application uses Eloquent ORM for interacting with the database, providing an elegant and expressive syntax for database queries and relationships.
+
+For live and dynamic content, the application leverages Livewire, enabling real-time updates and interactive user experiences directly within Blade templates—without leaving the Laravel ecosystem.
 
 ## Getting Started
 
