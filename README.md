@@ -4,7 +4,7 @@ An Application for digitizing local dispute resolution.
 
 ---
 
-**Abunzi** streamlines the process of filing, tracking, and resolving local disputes, with automated notifications and machine learning predictions for legal article classification and punishment suggestions.
+**Abunzi** streamlines the process of filing, tracking, and resolving local disputes, with automated notifications and machine learning predictions for legal article classification and punishment information (awereness).
 
 ---
 
@@ -13,7 +13,9 @@ An Application for digitizing local dispute resolution.
 - **Submit & Track Disputes:** File disputes, receive updates, and monitor progress.
 - **Automated Email Notifications:** Stay informed at each resolution stage.
 - **Machine Learning Integration:** Rubix ML predicts relevant legal articles and punishments.
-- **Admin Panel:** Manage cases, users, and settings.
+- **Admin Panel:** Manage sent cases, Justice cases Assignement, and adding justice poeple to Team.
+- **Justice Panel:** Solve assigned cases and access team settings.
+- **Citizen Panel:** Raise cases, track, and download report.
 - **Secure Authentication:** Built with Laravel's security features.
 
 ## Tech Stack
@@ -78,7 +80,7 @@ On Windows, open Command Prompt and run:
 ipconfig
 ```
 
-Look for the line under your active network adapter that says `IPv4 Address`. It will look something like `192.168.1.10`.
+Look for the line under your active network adapter that says `IPv4 Address`. It will look something like `192.168.1.10 or 172.31.23.2`.
 
 ### 2. Serve Laravel on All Network Interfaces
 
@@ -116,20 +118,19 @@ On another device connected to the same WiFi or network, open a browser and navi
 http://<your-ip>:8000
 ```
 
-You should see your Laravel application!
+You should see our Abunzi application!
 
 **Note:**  
-- Make sure your firewall allows inbound connections on port 8000.
-- For production or public access, use a proper web server (like Nginx or Apache) and secure your app.
-
+- My firewall allows inbound connections on port 8000.
 ---
 
 ## Usage
 
 - Register or log in.
 - Submit a dispute with details.
-- System predicts the article & punishment, and emails you.
+- You can talk to Mbaza AI through crime prompt and punishment responses
 - Track progress in your dashboard.
+- Enjoy simplicity
 
 ## Machine Learning
 
