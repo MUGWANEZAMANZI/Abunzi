@@ -1,6 +1,6 @@
 # Abunzi
 
-A Laravel application for digitizing local dispute resolution.
+An Application for digitizing local dispute resolution.
 
 ---
 
