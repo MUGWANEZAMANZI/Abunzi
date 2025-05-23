@@ -96,7 +96,7 @@ public function typePredictionCharacter()
         $model = PersistentModel::load(new ModelFilesystem(storage_path('app/legal-model.rbx')));
         $dataset = new Unlabeled($sample);
         $predictions = $model->predict($dataset);
-        $result = mb_convert_encoding($predictions[0], 'UTF-8', from_encoding: 'UTF-8');
+        $result = mb_convert_encoding($predictions[0], 'UTF-8', 'UTF-8');
 
         // Split immediately
         $parts = explode('|||', $result, 2);
