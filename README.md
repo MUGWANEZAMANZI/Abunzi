@@ -10,13 +10,39 @@ An Application for digitizing local dispute resolution.
 
 ## Features
 
-- **Submit & Track Disputes:** File disputes, receive updates, and monitor progress.
-- **Automated Email Notifications:** Stay informed at each resolution stage.
-- **Machine Learning Integration:** Rubix ML predicts relevant legal articles and punishments.
-- **Admin Panel:** Manage sent cases, Justice cases Assignement, and adding justice poeple to Team.
-- **Justice Panel:** Solve assigned cases and access team settings.
-- **Citizen Panel:** Raise cases, track, and download report.
-- **Secure Authentication:** Built with Laravel's security features.
+- **Submit & Track Disputes:** Citizens can easily file disputes, receive real-time updates, and monitor progress throughout the resolution process.
+- **Automated Email Notifications:** The system sends timely email notifications to all stakeholders:
+    - **Offender:** Notified about dispute progress and required actions.
+    - **Victim:** Receives updates regarding case status and next steps.
+    - **Justice Personnel:** Informed when cases are assigned and about upcoming venues or hearings.
+- **Machine Learning Integration:** Powered by Rubix ML, the app predicts relevant legal articles and suggests punishment information for each case.
+- **Admin Panel:** Manage and assign justice cases, add justice team members, and oversee sent cases.
+- **Justice Panel:** View and resolve assigned cases, update case status, and manage team settings.
+- **Citizen Panel:** Create an account, submit disputes, track ongoing cases, and download reports.
+- **Secure Authentication:** Built on Laravel's robust authentication features to ensure data security.
+- **Venue Management:** Justice personnel and citizens receive notifications about venue details and changes.
+- **AI-Powered Assistant:** Interact with "Mbaza AI" for crime prompts and punishment guidance.
+
+---
+
+## Creating an Account & Email Notifications
+
+### Creating an Account
+
+1. **Register:** Visit the registration page and fill in your details to create a new account as a citizen, justice personnel, or admin.
+2. **Verify Email:** You may be required to verify your email address to activate your account.
+3. **Login:** Use your credentials to access your personalized dashboard based on your user role.
+
+### Email Notifications
+
+- **To Offender:** Automatically notified when a dispute is filed against them, as well as at each stage of the case.
+- **To Victim:** Receives regular updates as the case progresses and when a resolution is reached.
+- **To Justice Personnel:** Alerted when assigned to a new case, with details about the involved parties and venue information.
+- **Venue Updates:** All relevant parties receive notifications if the venue or hearing date changes.
+
+---
+
+Let me know if you’d like this merged with your existing text or need further customization!
 
 ## Tech Stack
 
