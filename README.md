@@ -1,170 +1,149 @@
+Here’s a technical README section based on your requirements. This version focuses on setup and exposure, with instructions for getting XAMPP, Composer, starting the project, and exposing it on your local network.
+
+---
+
 # Abunzi
 
-An Application for digitizing local dispute resolution.
+An application for digitizing local dispute resolution using Laravel, Blade, and Rubix ML.
 
 ---
 
-**Abunzi** streamlines the process of filing, tracking, and resolving local disputes, with automated notifications and machine learning predictions for legal article classification and punishment information (awereness).
-
----
-
-## Features
-
-- **Submit & Track Disputes:** Citizens can easily file disputes, receive real-time updates, and monitor progress throughout the resolution process.
-- **Automated Email Notifications:** The system sends timely email notifications to all stakeholders:
-    - **Offender:** Notified about dispute progress and required actions.
-    - **Victim:** Receives updates regarding case status and next steps.
-    - **Justice Personnel:** Informed when cases are assigned and about upcoming venues or hearings.
-- **Machine Learning Integration:** Powered by Rubix ML, the app predicts relevant legal articles and suggests punishment information for each case.
-- **Admin Panel:** Manage and assign justice cases, add justice team members, and oversee sent cases.
-- **Justice Panel:** View and resolve assigned cases, update case status, and manage team settings.
-- **Citizen Panel:** Create an account, submit disputes, track ongoing cases, and download reports.
-- **Secure Authentication:** Built on Laravel's robust authentication features to ensure data security.
-- **Venue Management:** Justice personnel and citizens receive notifications about venue details and changes.
-- **AI-Powered Assistant:** Interact with "Mbaza AI" for crime prompts and punishment guidance.
-
----
-
-## Creating an Account & Email Notifications
-
-### Creating an Account
-
-1. **Register:** Visit the registration page and fill in your details to create a new account as a citizen, justice personnel, or admin.
-2. **Verify Email:** You may be required to verify your email address to activate your account.
-3. **Login:** Use your credentials to access your personalized dashboard based on your user role.
-
-### Email Notifications
-
-- **To Offender:** Automatically notified when a dispute is filed against them, as well as at each stage of the case.
-- **To Victim:** Receives regular updates as the case progresses and when a resolution is reached.
-- **To Justice Personnel:** Alerted when assigned to a new case, with details about the involved parties and venue information.
-- **Venue Updates:** All relevant parties receive notifications if the venue or hearing date changes.
-
----
-
-Let me know if you’d like this merged with your existing text or need further customization!
-
-## Tech Stack
-
-- **Backend:** [Laravel](https://laravel.com/) (PHP)
-- **Frontend:** Blade Templates, [Livewire](https://laravel-livewire.com/)
-- **Machine Learning:** [Rubix ML](https://rubixml.com/)
-- **Database:** MySQL/PostgreSQL
-
-**#Architecture**
-This project follows the MVC (Model-View-Controller) pattern to ensure a clean separation of concerns. Each view is paired with a corresponding controller and model, making the codebase organized and maintainable.
-
-The application uses Eloquent ORM for interacting with the database, providing an elegant and expressive syntax for database queries and relationships.
-
-For live and dynamic content, the application leverages Livewire, enabling real-time updates and interactive user experiences directly within Blade templates—without leaving the Laravel ecosystem.
-
-## Getting Started
+## Technical Setup
 
 ### Prerequisites
 
-- PHP >= 8.0
-- Composer
-- MySQL or PostgreSQL
-- Node.js & NPM
-
-### Installation
-
-1. **Clone the repository**
-    ```bash
-    git clone https://github.com/MUGWANEZAMANZI/Abunzi.git
-    cd Abunzi
-    ```
-2. **Install dependencies**
-    ```bash
-    composer install
-    npm install
-    npm run dev
-    ```
-3. **Configure environment**
-    ```bash
-    cp .env.example .env
-    # Edit .env for your database and mail settings
-    ```
-4. **Generate application key & migrate database**
-    ```bash
-    php artisan key:generate
-    php artisan migrate
-    ```
-5. **Run the server**
-    ```bash
-    php artisan serve
-    ```
+- **PHP** >= 8.0
+- **Composer** (Dependency manager for PHP)
+- **XAMPP** (for Apache/MySQL, if you want an all-in-one local environment)
+- **Node.js & NPM** (for frontend asset compilation)
 
 ---
 
-## Local Network Access & Exposing the App
+### 1. Install XAMPP
 
-To allow other devices on your local network to access your Laravel app, you need to bind the PHP and npm servers to 0.0.0.0 and use your local machine's IP address.
+Download and install XAMPP from [https://www.apachefriends.org/index.html](https://www.apachefriends.org/index.html).  
+Start Apache and MySQL from the XAMPP Control Panel.
 
-### 1. Find Your Local IP Address
-
-On Windows, open Command Prompt and run:
-
-```cmd
-ipconfig
-```
-
-Look for the line under your active network adapter that says `IPv4 Address`. It will look something like `192.168.1.10 or 172.31.23.2`.
-
-### 2. Serve Laravel on All Network Interfaces
-
-Instead of the default localhost, run:
-
-```bash
-php artisan serve --host=0.0.0.0 --port=8000
-```
-
-Now, your app is accessible on your local network at:
-```
-http://<your-ip>:8000 usually hhtp://127.0.0.1:8000
-```
-Replace `<your-ip>` with the IPv4 address you found earlier (e.g., http://172.31.1.10:8000).
-
-### 3. Serve Vite (npm) on All Network Interfaces
-
-If your frontend uses Vite (default for Laravel 9+):
-
-```bash
-npm run dev -- --host 0.0.0.0
-```
-or if using older NPM scripts:
-```bash
-npm run dev -- --host=0.0.0.0
-```
-
-This ensures hot reloading and assets are also served on your network IP.
-
-### 4. Access from Another Device
-
-On another device connected to the same WiFi or network, open a browser and navigate to:
-
-```
-http://<your-ip>:8000
-```
-
-You should see our Abunzi application!
-
-**Note:**  
-- My firewall allows inbound connections on port 8000.
 ---
 
-## Usage
+### 2. Install Composer
 
-- Register or log in.
-- Submit a dispute with details.
-- You can talk to Mbaza AI through crime prompt and punishment responses
-- Track progress in your dashboard.
-- Enjoy simplicity
+Download and install Composer from [https://getcomposer.org/download/](https://getcomposer.org/download/).  
+Verify installation:
+
+```bash
+composer --version
+```
+
+---
+
+### 3. Clone the Repository
+
+```bash
+git clone https://github.com/MUGWANEZAMANZI/Abunzi.git
+cd Abunzi
+```
+
+---
+
+### 4. Install PHP Dependencies
+
+```bash
+composer install
+```
+
+---
+
+### 5. Install Node.js Dependencies
+
+```bash
+npm install
+npm run dev
+```
+
+---
+
+### 6. Environment Configuration
+
+```bash
+cp .env.example .env
+```
+- Edit `.env` to set up your database (MySQL/PostgreSQL) and mail credentials.
+- Start MySQL via XAMPP and create a database for the project.
+
+---
+
+### 7. Generate App Key & Migrate Database
+
+```bash
+php artisan key:generate
+php artisan migrate
+```
+
+---
+
+### 8. Start the Laravel Development Server
+
+```bash
+php artisan serve
+```
+By default, the app runs at [http://127.0.0.1:8000](http://127.0.0.1:8000).
+
+---
+
+## Exposing the App on Local Network
+
+To allow access from other devices on your WiFi/network:
+
+1. **Find your local IP:**
+   - On Windows, run:  
+     ```cmd
+     ipconfig
+     ```
+   - Look for `IPv4 Address`, e.g., `192.168.1.10`.
+
+2. **Run Laravel on all interfaces:**
+   ```bash
+   php artisan serve --host=0.0.0.0 --port=8000
+   ```
+
+3. **(If using Vite for assets) Run Vite on all interfaces:**
+   ```bash
+   npm run dev -- --host 0.0.0.0
+   ```
+
+4. **Access from another device:**  
+   Go to `http://<your-ip>:8000` in a browser.
+
+**Note:** Allow port 8000 through your firewall if needed.
+
+---
+
+## Project Start & Usage
+
+- Register/login as a Citizen, Justice Personnel, or Admin.
+- Submit and track disputes.
+- Use the AI assistant for crime and punishment queries.
+- Notifications are sent to all stakeholders.
+- Admin and Justice panels for managing and resolving cases.
+
+---
 
 ## Machine Learning
 
-- Rubix ML is used for predictions.
-- Ensure models are trained and saved in the correct storage path.
-- Refer to [Rubix ML docs](https://rubixml.com/docs/) for training/updating models.
+- Rubix ML powers legal article classification and punishment suggestion.
+- Make sure models are trained and stored correctly.
+- See [Rubix ML documentation](https://rubixml.com/docs/) for updating or training models.
 
-*For detailed guides, see the [Laravel Docs](https://laravel.com/docs/) and [Rubix ML Docs](https://rubixml.com/docs/).*
+---
+
+## References
+
+- [Laravel Documentation](https://laravel.com/docs/)
+- [Composer Documentation](https://getcomposer.org/doc/)
+- [Rubix ML Documentation](https://rubixml.com/docs/)
+- [XAMPP Documentation](https://www.apachefriends.org/faq.html)
+
+---
+
+Let me know if you want this merged with your original README or need additional customization!
