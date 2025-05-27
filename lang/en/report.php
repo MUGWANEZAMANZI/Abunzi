@@ -14,6 +14,7 @@ return [
     'meeting_datetime' => 'Meeting Date & Time:',
     'raiser_wish' => 'Complainant’s Request:',
     'accused_wish' => 'Accused’s Request:',
+    'abunzi' => 'Abunzi Committee',
     'witnesses' => 'Witnesses:',
     'attendees' => 'Meeting Attendees:',
     'final_resolution' => 'Final Resolution:',

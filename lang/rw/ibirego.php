@@ -10,7 +10,7 @@ return [
     'solved' => 'Ibyakemuwe',
      'id' => 'ID',
     'ttitle' => 'Umutwe',
-    'phone' => 'Telefoni',
+    'phone' => 'Imeli',
     'offender' => 'Ndarega',
     'witness' => 'Abatangabuhamya',
     'status' => 'Sitati',

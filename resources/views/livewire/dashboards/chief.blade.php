@@ -172,8 +172,8 @@
                         <input type="datetime-local" wire:model="meetingDate" class="w-full border p-1" />
                     </div>
 
-                    <button wire:click="assignDispute" class="bg-green-600 text-white px-4 py-1 rounded">Emeza</button>
-                    <button x-on:click="showModal = false" class="ml-2 bg-gray-400 px-3 py-1 rounded">Hagarika</button>
+                    <button wire:wire:loading="disabled" wire:click="assignDispute"  class="bg-green-600 disabled:opacity-30 text-white px-4 py-1 rounded">Emeza</button>
+                    <button x-on:click="showModal = false"  class="ml-2 bg-gray-400 px-3 py-1 rounded">Hagarika</button>
                 </div>
             </div>
         </div>

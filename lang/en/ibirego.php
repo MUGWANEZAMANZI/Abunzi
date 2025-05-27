@@ -11,7 +11,7 @@ return [
     //Table values
     'id' => 'ID',
     'ttitle' => 'Title',
-    'phone' => 'Phone',
+    'phone' => 'Email',
     'offender' => 'Offender',
     'witness' => 'Witnesses',
     'status' => 'Status',

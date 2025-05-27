@@ -340,10 +340,17 @@ class Ikirego extends Component
                     //Log::info($this->user->email);
                     //Log::info($this->user->name);
                     $this->emailService->notifyDisputeCreated(
-                    auth()->user()->email, 
-                    auth()->user()->name,
-                   $this->title
-                );
+                        [
+                            'email' => $this->offender_mail,
+                            'name' => $this->offender,
+                        ],
+                        [
+                            'email' => auth()->user()->email,
+                            'name' => auth()->user()->name,
+                        ],
+                        $this->title
+                    );
+
 
 
                 } catch (\Exception $mailException) {

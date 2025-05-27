@@ -157,8 +157,8 @@
                                             class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
                                         {{ __('justice-dash.cancel') }}
                                     </button>
-                                    <button wire:click="submitResolution({{ $assignment->id }})"
-                                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                                    <button wire:loading="disabled"  wire:click="submitResolution({{ $assignment->id }})"
+                                            class="bg-blue-600 disabled:opacity-30 hover:bg-blue-700 text-white px-4 py-2 rounded">
                                         {{ __('justice-dash.confirm') }}
                                     </button>
                                 </div>
@@ -197,8 +197,8 @@
                                         class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
                                     {{ __('justice-dash.cancel') }}
                                 </button>
-                                <button wire:click="submitPostponement({{ $assignment->id }})"
-                                        class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded">
+                                <button wire:loading="disabled" wire:click="submitPostponement({{ $assignment->id }})"
+                                        class="bg-yellow-600 disabled:opacity-30 hover:bg-yellow-700 text-white px-4 py-2 rounded">
                                     {{ __('justice-dash.confirm_postpone') }}
                                 </button>
                             </div>

@@ -15,7 +15,8 @@
         .header {
             text-align: center;
             margin-bottom: 25px;
-            background: linear-gradient(to right, #005baa, #00c6fb);
+            /*background: linear-gradient(to right, #005baa, #00c6fb); */
+            background-color: rgb(57, 57, 83);
             color: white;
             padding: 20px 10px;
             border-radius: 8px;
@@ -70,6 +71,7 @@
     <div class="header">
         <h1>{{ __('report.republic') }}</h1>
         <div><strong>{{ __('report.ministry') }}</strong></div>
+        <div><strong>{{ __('report.abunzi') }}</strong></div>
     </div>
 
     <h2>{{ __('report.report_title') }}</h2>
@@ -126,7 +128,7 @@
             <p class="mb-10">{{ __('report.committee_lead') }}</p>
             <div class="signature-line"></div>
             @if($leadJustice)
-                <p class="font-bold mt-2">{{ $leadJustice->name }}</p>
+                <p class="font-bold mt-2">{{ $chiefName }}</p>
             @endif
         </div>
     </div>

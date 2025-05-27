@@ -26,6 +26,7 @@ return new class extends Migration
             $table->enum('status', ['kirabitse', 'cyoherejwe', 'kizasomwa', 'cyakemutse']);
             $table->foreignId('citizen_id')->constrained('users')->onDelete('cascade');
             $table->string('location_name'); // Changed from location_id to location_name
+            $table->integer('chief')->nullable()->default(null); // Chief who created the dispute
             $table->timestamps();
         });
     }

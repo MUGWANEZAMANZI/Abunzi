@@ -186,6 +186,39 @@ class Justice extends Component
 
     $this->reset(['form', 'showPostponeModal']);
     session()->flash('message', 'Inama yasubitswe neza.');
+
+
+    // Notify involved parties about the postponement
+    $emailSent = $this->emailService->notifyDisputePostponed(
+        [
+            'email' => $assignment->dispute->offender_mail,
+            'name' => $assignment->dispute->offender_name,
+        ],
+        [
+            'email' => $assignment->dispute->citizen->email,
+            'name' => $assignment->dispute->citizen->name,
+        ],
+        [
+            'email' => auth()->user()->email,
+            'name' => auth()->user()->name,
+        ],
+        $assignment->meeting_time,
+        $assignment->meeting_time,
+        $assignment->postponed_reason,
+        $assignment->dispute->cell,
+        $assignment->dispute->title,
+        $assignmentId
+    );
+    if ($emailSent) {
+        Log::info('Postponement notification sent successfully.');
+    } else {
+        Log::error('Failed to send postponement notification email.');
+    }
+
+
+
+
+
 }
 
 

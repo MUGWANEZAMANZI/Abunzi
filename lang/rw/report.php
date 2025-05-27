@@ -10,6 +10,7 @@ return [
     'location' => 'Aho ikibazo cyabereye:',
     'meeting_datetime' => 'Itariki n’isaha y’inama:',
     'raiser_wish' => 'Icyifuzo cy’uwatanze ikirego:',
+    'abunzi' => 'Urwego rw’Abunzi:',
     'accused_wish' => 'Icyifuzo cy’uregwa:',
     'witnesses' => 'Abatangabuhamya:',
     'attendees' => 'Abitabiriye inama:',

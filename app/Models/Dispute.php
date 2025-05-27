@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Dispute extends Model
 {
     
-    protected $fillable = ['title', 'content', 'offender_name','offender_mail','witness_name', 'province', 'district', 'sector', 'cell', 'village', 'status', 'citizen_id', 'location_name'];
+    protected $fillable = ['title', 'content', 'offender_name','offender_mail','witness_name', 'province', 'district', 'sector', 'cell', 'village', 'status', 'citizen_id', 'location_name', 'chief'];
 
     public function citizen() {
         return $this->belongsTo(User::class, 'citizen_id');
