@@ -345,8 +345,8 @@ class Ikirego extends Component
                         'name' => $this->offender,
                        ],
                        [
-                        'email' => auth()->user()->name,
-                        'name' => auth()->user()->email, 
+                        'email' => auth()->user()->email,
+                        'name' => auth()->user()->name, 
                        ],
                        $this->title                   
                 );

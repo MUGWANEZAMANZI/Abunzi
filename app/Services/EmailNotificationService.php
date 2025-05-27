@@ -20,14 +20,15 @@ class EmailNotificationService
 
    public function notifyDisputeAssigned(array $offender, array $victim, array $justice, string $meetingDate, string $venue, string $title, int $no): bool
 {
-    $subject = 'Igihe cy’Inama cyatanzwe';
+    $victimSubject = 'Igihe cy’Inama cyatanzwe';
+    $offenderSubject = "Warezwe mu rwego rw'Abunzi";
 
     $offenderBody = "Muraho {$offender['name']}, inama y’ikirego nimero #0{$no} gifite umutwe {$title}, uregwamo na {$victim['name']}, izaba kuwa {$meetingDate}, kubiro by'Akagari ka: {$venue}. Musabwe kuhagera mbere y'iminota mirongo itatu";
     $victimBody = "Muraho {$victim['name']}, inama y’ikirego nimero #0{$no} gifite {$title} uregamo {$offender['name']}, izaba kuwa {$meetingDate}, kubiro by'Akagari ka: {$venue}. Musabwe kuhagera mbere y'iminota mirongo itatu";
     $justiceBody = "Muraho {$justice['name']}, mwashinzwe kuyobora ikirego gifite umutwe:  {$title} cyo ubwunzi hagati ya {$offender['name']} na {$victim['name']} kizaba kuwa {$meetingDate}, kubiro by'Akagari ka: {$venue}.";
 
-    $sent1 = $this->sendMail($offender['email'], $subject, $offenderBody);
-    $sent2 = $this->sendMail($victim['email'], $subject, $victimBody);
+    $sent1 = $this->sendMail($offender['email'], $offenderSubject, $offenderBody);
+    $sent2 = $this->sendMail($victim['email'], $victimSubject, $victimBody);
     $sent3 = $this->sendMail($justice['email'], $subject, $justiceBody);
 
     return $sent1 && $sent2 && $sent3;
