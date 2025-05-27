@@ -122,8 +122,8 @@
                 @if($isEditing)
                 <button type="button" wire:click="delete" wire:confirm="Uzi neza ko ushaka gusiba iki kirego?" class="w-full sm:w-24 p-2 rounded-md text-base sm:text-lg bg-red-300 hover:bg-red-700 transition-colors">{{ __('ikirego.clear') }}</button>
                 @endif
-                <button type="button" wire:click="draft" class="w-full sm:w-24 p-2 rounded-md text-base sm:text-lg bg-yellow-200 hover:bg-yellow-500 transition-colors">{{ __('ikirego.draft') }}</button>
-                <button type="submit" class="w-full sm:w-24 p-2 rounded-md text-base sm:text-lg bg-green-200 hover:bg-green-700 transition-colors">{{ __('ikirego.save') }}</button>
+                <button type="button" wire:click="draft"   wire:wire:loading="disabled"  class="w-full disabled:opacity-30 sm:w-24 p-2 rounded-md text-base sm:text-lg bg-yellow-200 hover:bg-yellow-500 transition-colors">{{ __('ikirego.draft') }}</button>
+                <button type="submit" wire:wire:loading="disabled"  class="w-full disabled:opacity-30 sm:w-24 p-2 rounded-md text-base sm:text-lg bg-green-200 hover:bg-green-700 transition-colors">{{ __('ikirego.save') }}</button>
             </div>
         </form>
     </div>

@@ -116,6 +116,9 @@ class Chief extends Component
                     'level' => 'Sector',
                 ]);
             }
+            
+            Dispute::where('id', $this->selectedDispute->id)
+                ->update(['chief' => auth()->user()->id]);
 
             $this->selectedDispute->update([
                 'status' => 'Kizasomwa',

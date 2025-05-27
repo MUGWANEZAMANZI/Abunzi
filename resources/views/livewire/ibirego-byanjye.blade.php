@@ -46,9 +46,9 @@
                     <div class="flex justify-between items-center mb-2">
                         <span class="font-bold">#{{ $dispute->id }}</span>
                         <span class="px-2 py-1 rounded-full text-xs
-                            @if($dispute->status === 'kirabitse') bg-yellow-100 text-yellow-800
-                            @elseif($dispute->status === 'kizasomwa') bg-blue-100 text-blue-800
-                            @elseif($dispute->status === 'cyakemutse') bg-green-100 text-green-800
+                            @if($dispute->status === 'kirabitse') bg-yellow-400 text-yellow-800
+                            @elseif($dispute->status === 'kizasomwa') bg-blue-400 text-blue-800
+                            @elseif($dispute->status === 'cyakemutse') bg-green-400 text-green-800
                             @elseif($dispute->status === 'cyoherejwe') bg-red-400 text-black
                             @endif">
                             {{ $dispute->status }}
@@ -78,7 +78,7 @@
                         <th class="border border-gray-300 px-4 py-2">{{ __('ibirego.id') }}</th>
                         <th class="border border-gray-300 px-4 py-2">{{ __('ibirego.ttitle') }}</th>
                         <th class="border border-gray-300 px-4 py-2">{{ __('ibirego.offender') }}</th>
-                        <th class="border border-gray-300 px-4 py-2">{{ __('ibirego.phone') }}</th>
+                        <th class="border border-gray-300 px-4 py-2">{{ __('ibirego.phone') }}</th> 
                         <th class="border border-gray-300 px-4 py-2">{{ __('ibirego.witness') }}</th>
                         <th class="border border-gray-300 px-4 py-2">{{ __('ibirego.status') }}</th>
                         <th class="border border-gray-300 px-4 py-2">{{ __('ibirego.location') }}</th>
@@ -97,7 +97,7 @@
                             <td class="border border-gray-300 px-4 py-2">{{ $dispute->id }}</td>
                             <td class="border border-gray-300 px-4 py-2">{{ $dispute->title }}</td>
                             <td class="border border-gray-300 px-4 py-2">{{ $dispute->offender_name }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $dispute->offender_phone }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ $dispute->offender_mail }}</td>
                             <td class="border border-gray-300 px-4 py-2">{{ $dispute->witness_name }}</td>
                             <td class="border border-gray-300 px-4 py-2">
                                 <span class="px-2 py-1 rounded-full text-xs
