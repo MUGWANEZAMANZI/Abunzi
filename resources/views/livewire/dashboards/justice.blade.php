@@ -76,10 +76,14 @@
 
                             <div class="col-span-2">
                                 <h4 class="font-semibold text-orange-600 dark:text-orange-400">{{ __('justice-dash.hearing_date') }}</h4>
-                                <p>{{ \Carbon\Carbon::parse($assignment->created_at)->format('F d, Y h:i A') }}</p>
+                                <p>{{ \Carbon\Carbon::parse($assignment->meeting_time)->format('F d, Y h:i A') }}</p>
                             </div>
 
                             <div class="col-span-2 flex justify-end">
+                                <button wire:click="$set('showPostponeModal', {{ $assignment->id }})"
+                                        class="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-4 py-2 mr-2 rounded shadow">
+                                    {{ __('justice-dash.postpone') }}
+                                </button>
                                 <button wire:click="$set('showModal', {{ $assignment->id }})"
                                         class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded shadow">
                                     {{ __('justice-dash.end_meeting') }}
@@ -161,6 +165,47 @@
                             </div>
                         </div>
                     @endif
+
+                    {{-- Post poned model starts here --}}
+
+                    @if ($showPostponeModal === $assignment->id)
+                    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+                        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg w-full max-w-2xl p-6 space-y-4">
+                            <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2">
+                                {{ __('justice-dash.postpone_meeting_title', ['title' => $assignment->dispute->title]) }}
+                            </h2>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    {{ __('justice-dash.postpone_reason') }}
+                                </label>
+                                <textarea wire:model.defer="form.postpone_reason"
+                                        class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"
+                                        placeholder="{{__('justice-dash.placeholder-reason')}}"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    {{ __('justice-dash.new_hearing_date') }}
+                                </label>
+                                <input wire:model.defer="form.new_hearing_date" type="datetime-local"
+                                    class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"/>
+                            </div>
+
+                            <div class="flex justify-end space-x-3 pt-4">
+                                <button wire:click="$set('showPostponeModal', null)"
+                                        class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                                    {{ __('justice-dash.cancel') }}
+                                </button>
+                                <button wire:click="submitPostponement({{ $assignment->id }})"
+                                        class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded">
+                                    {{ __('justice-dash.confirm_postpone') }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 @endif
             @endforeach
         @endif

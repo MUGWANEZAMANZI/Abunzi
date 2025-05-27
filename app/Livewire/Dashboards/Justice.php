@@ -17,6 +17,7 @@ class Justice extends Component
 
     public $TobeSolved = [];
     public $showModal = null;
+    public $showPostponeModal = null;
     public $evidence;
     public $assignment;
 
@@ -29,6 +30,8 @@ class Justice extends Component
         'ended_at' => '',
         //'offender_mail' => '',
         'complainant_phone' => '',
+        'postpone_reason' => '',
+        'new_hearing_date' => '',
     ];
 
     protected EmailNotificationService $emailService;
@@ -161,6 +164,31 @@ class Justice extends Component
 
         $this->mount(); // refresh list
     }
+
+    public function submitPostponement($assignmentId)
+{
+    $this->validate([
+        'form.postpone_reason' => 'required|string|min:5',
+        'form.new_hearing_date' => 'required|date|after:now',
+    ]);
+
+    $assignment = Assignment::findOrFail($assignmentId);
+    
+    $assignment->update([
+        'postponed_reason' => $this->form['postpone_reason'],
+        'meeting_time' => $this->form['new_hearing_date'],
+    ]);
+
+    // Optional: Update dispute status too (only if needed)
+    $assignment->dispute()->update([
+        'status' => 'kizasomwa', // this means postponed?
+    ]);
+
+    $this->reset(['form', 'showPostponeModal']);
+    session()->flash('message', 'Inama yasubitswe neza.');
+}
+
+
 
     public function render()
     {

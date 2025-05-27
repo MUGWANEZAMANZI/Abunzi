@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Assignment extends Model
 {
-    protected $fillable = ['dispute_id', 'justice_id','meeting_time', 'level'];
+    protected $fillable = ['dispute_id', 'justice_id','meeting_time','postponed_reason', 'level'];
 
     public function dispute() {
         return $this->belongsTo(Dispute::class);
