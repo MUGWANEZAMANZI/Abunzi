@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Services\EmailNotificationService;
 use Illuminate\Support\Facades\Log;
 
-#[Title('Justice')]
+#[Title('Justice Dashboard')]
 class Justice extends Component
 {
     use WithFileUploads;

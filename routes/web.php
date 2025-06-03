@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\WelcomeController;
 
 // Language switching route (placed above all other routes)
 Route::get('/set-locale/{locale}', function ($locale) {
@@ -23,7 +24,7 @@ Route::get('/set-locale/{locale}', function ($locale) {
     return redirect()->back();
 })->name('set-locale');
 
-Route::get('/', fn () => view('welcome'));
+Route::get('/', fn() => view('welcome'));
 
 // Authenticated routes
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'locale'])->group(function () {

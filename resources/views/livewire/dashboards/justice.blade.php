@@ -1,7 +1,9 @@
 <div>
     <x-app-layout>
+        <x-slot name="title">
+            Justice Dashboard
+        </x-slot>
         <x-slot name="header">
-            <!-- Custom top bar if any -->
         </x-slot>
 
         <div class="mt-4 text-center">
@@ -19,10 +21,10 @@
         @else
             @foreach($TobeSolved as $assignment)
                 @if($assignment->justice)
-                    <div class="bg-white dark:bg-gray-800 shadow rounded-xl p-6 mb-6 border-l-4 border-blue-600">
-                        <div class="flex justify-between items-center mb-4">
+                    <div class="bg-white dark:bg-gray-800 shadow rounded-xl p-1 mb-1 border-l-4 border-blue-600">
+                        <div class="flex justify-between items-center mb-1">
                             <div>
-                                <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+                                <h2 class=" font-bold text-gray-900 dark:text-white">
                                     {{ $assignment->dispute->title }}
                                 </h2>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">
@@ -36,9 +38,9 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
+                        <div class="grid grid-cols-2 gap-1 text-sm text-gray-700 dark:text-gray-300">
                             <div>
-                                <h4 class="font-semibold text-blue-600 dark:text-blue-400">{{ __('justice-dash.assigned_judge') }}</h4>
+                                <h6 class=" text-blue-600 dark:text-blue-400">{{ __('justice-dash.assigned_judge') }}</h6>
                                 <p>{{ $assignment->justice->name }} ({{ $assignment->justice->email }})</p>
                             </div>
 
@@ -93,77 +95,69 @@
                     </div>
 
                     @if ($showModal === $assignment->id)
-                        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-                            <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg w-full max-w-3xl p-6 space-y-4">
-                                <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2">
+                        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4">
+                        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg w-full max-w-3xl flex flex-col max-h-[90vh]">
+                            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                                <h2 class="text-xl font-bold text-gray-800 dark:text-white">
                                     {{ __('justice-dash.meeting_concluded', ['title' => $assignment->dispute->title]) }}
                                 </h2>
+                            </div>
 
+                            <div class="p-4 space-y-4 overflow-y-auto custom-scrollbar flex-grow">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                         {{ __('justice-dash.victim_resolution') }}
-                                    </label>
-                                    <textarea wire:model.defer="form.victim_resolution" class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"></textarea>
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        {{ __('justice-dash.offender_resolution') }}
-                                    </label>
-                                    <textarea wire:model.defer="form.offender_resolution" class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"></textarea>
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        {{ __('justice-dash.witnesses') }}
-                                    </label>
-                                    <input wire:model.defer="form.witnesses" type="text" placeholder="e.g. Musa, Uwera"
-                                           class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"/>
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        {{ __('justice-dash.attendees') }}
-                                    </label>
-                                    <input wire:model.defer="form.attendees" type="text" placeholder="e.g. abaturage, abanyesibo"
-                                           class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"/>
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        {{ __('justice-dash.justice_resolution') }}
-                                    </label>
-                                    <textarea wire:model.defer="form.justice_resolution" class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"></textarea>
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        {{ __('messages.evidence') }}
-                                    </label>
-                                    <input type="file" wire:model="evidence"
-                                           class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"/>
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        {{ __('justice-dash.ended_at') }}
-                                    </label>
-                                    <input wire:model.defer="form.ended_at" type="datetime-local"
-                                           class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"/>
-                                </div>
-
-                                <div class="flex justify-end space-x-3 pt-4">
-                                    <button wire:click="$set('showModal', null)"
-                                            class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
-                                        {{ __('justice-dash.cancel') }}
-                                    </button>
-                                    <button wire:loading="disabled"  wire:click="submitResolution({{ $assignment->id }})"
-                                            class="bg-blue-600 disabled:opacity-30 hover:bg-blue-700 text-white px-4 py-2 rounded">
-                                        {{ __('justice-dash.confirm') }}
-                                    </button>
-                                </div>
-                            </div>
+                            </label>
+                            <textarea wire:model.defer="form.victim_resolution" class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"></textarea>
                         </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {{ __('justice-dash.offender_resolution') }}
+                            </label>
+                            <textarea wire:model.defer="form.offender_resolution" class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {{ __('justice-dash.witnesses') }}
+                            </label>
+                            <input wire:model.defer="form.witnesses" type="text" placeholder="e.g. Musa, Uwera"
+                                class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {{ __('justice-dash.attendees') }}
+                            </label>
+                            <input wire:model.defer="form.attendees" type="text" placeholder="e.g. abaturage, abanyesibo"
+                                class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {{ __('justice-dash.justice_resolution') }}
+                            </label>
+                            <textarea wire:model.defer="form.justice_resolution" class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"></textarea>
+                        </div>
+                                <input wire:model.defer="form.ended_at" type="datetime-local"
+                                        class="w-full rounded border-gray-300 dark:bg-gray-800 dark:text-white mt-1"/>
+                                </div>
+                                <div class="flex justify-end space-x-3 p-4 border-t border-gray-200 dark:border-gray-700">
+                                <button wire:click="$set('showModal', null)"
+                                        class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                                    {{ __('justice-dash.cancel') }}
+                                </button>
+                                <button wire:loading.attr="disabled" wire:click="submitResolution({{ $assignment->id }})"
+                                        class="bg-blue-600 disabled:opacity-30 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                                    {{ __('justice-dash.confirm') }}
+                                </button>
+                            
+                        </div>
+                            </div>
+
+                            
+                    </div>
                     @endif
 
                     {{-- Post poned model starts here --}}
@@ -197,7 +191,7 @@
                                         class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
                                     {{ __('justice-dash.cancel') }}
                                 </button>
-                                <button wire:loading="disabled" wire:click="submitPostponement({{ $assignment->id }})"
+                                <button wire:loading.attr="disabled" wire:click="submitPostponement({{ $assignment->id }})"
                                         class="bg-yellow-600 disabled:opacity-30 hover:bg-yellow-700 text-white px-4 py-2 rounded">
                                     {{ __('justice-dash.confirm_postpone') }}
                                 </button>

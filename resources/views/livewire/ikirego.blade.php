@@ -114,7 +114,7 @@
             </div>
 
             <div>
-                <label class="block text-white mb-1 text-sm sm:text-base">{{ __('ikirego.witness') }}</label>
+                <label class="block text-white mb-1 sm:text-base">{{ __('ikirego.witness') }}</label>
                 <input type="text" name="witness" wire:model="witness" placeholder="{{ __('ikirego.holder') }}" class="w-full h-8 sm:h-10 px-2 text-sm sm:text-base rounded-md">
                 @error('witness') <span class="text-red-500 text-xs sm:text-sm">{{ $message }}</span> @enderror
             </div>
