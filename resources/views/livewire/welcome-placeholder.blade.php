@@ -18,7 +18,7 @@
                 <div class="h-3 bg-gray-300 rounded w-9/12"></div>
             </div>
 
-            <div class="text-center text-gray-500 text-xl pt-4">
+            <div class="text-center text-gray-500 text-md pt-4">
                 {{ __('loading.title')}}
                 <span class="animate-ping inline-block mx-1">.</span><span class="animate-ping inline-block mx-1 delay-150">.</span><span class="animate-ping inline-block mx-1 delay-300">.</span>
             </div>

@@ -1,9 +1,12 @@
 <?php
 
+use App\Livewire\Search;
+use App\Models\Dispute;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\WelcomeController;
+use App\Livewire\ShowUser;
 
 // Language switching route (placed above all other routes)
 Route::get('/set-locale/{locale}', function ($locale) {
@@ -59,8 +62,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
      */
     Route::prefix('chief')->middleware(['role:chief'])->group(function () {
         Route::get('/dashboard', \App\Livewire\Dashboards\Chief::class)->name('chief.dashboard');
+        Route::get('/search', Search::class);
+        Route::get('/search/{user}', ShowUser::class);
         //Route::get('/results', fn () => view('chief.results'))->name('chief.results');
     });
+
+    
+
+
+
 
 });
 

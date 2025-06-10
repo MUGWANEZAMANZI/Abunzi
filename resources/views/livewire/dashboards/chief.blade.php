@@ -8,7 +8,7 @@
 
         <!-- Tabs -->
         <div class="mb-4 border-b border-gray-200">
-            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center items-center">
                 <li class="mr-2">
                     <button wire:click="setActiveTab('all')" 
                             class="inline-block p-4 {{ $activeTab === 'all' ? 'text-red-600 border-b-2 border-red-600' : 'hover:text-gray-600 hover:border-gray-300' }}">
@@ -27,12 +27,17 @@
                         {{ __('chief.assigned') }} ({{ $disputeCounts['assigned'] }})
                     </button>
                 </li>
-                
                 <li class="mr-2">
                     <button wire:click="setActiveTab('resolved')" 
                             class="inline-block p-4 {{ $activeTab === 'resolved' ? 'text-red-600 border-b-2 border-red-600' : 'hover:text-gray-600 hover:border-gray-300' }}">
                         {{ __('chief.solved') }} ({{ $disputeCounts['resolved'] }})
                     </button>
+                </li>
+                <li class="flex-1"></li>
+                <li>
+                    <div class="ml-auto w-full block mt-2 mr-2 items-center h-full">
+                        <livewire:search />
+                    </div>
                 </li>
             </ul>
         </div>

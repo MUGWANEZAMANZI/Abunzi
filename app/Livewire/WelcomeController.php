@@ -8,7 +8,7 @@ class WelcomeController extends Component
 {
     public function render()
     {
-        sleep(5);
+        sleep(2);
         return view('livewire.welcome-controller');
     }
 
