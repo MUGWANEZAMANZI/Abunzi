@@ -8,39 +8,42 @@
 
         <!-- Tabs -->
         <div class="mb-4 border-b border-gray-200">
-            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center items-center">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center items-center w-full">
                 <li class="mr-2">
-                    <button wire:click="setActiveTab('all')" 
-                            class="inline-block p-4 {{ $activeTab === 'all' ? 'text-red-600 border-b-2 border-red-600' : 'hover:text-gray-600 hover:border-gray-300' }}">
-                        {{ __('chief.all') }} ({{ $disputeCounts['all'] }})
-                    </button>
-                </li>
-                <li class="mr-2">
-                    <button wire:click="setActiveTab('received')" 
-                            class="inline-block p-4 {{ $activeTab === 'received' ? 'text-red-600 border-b-2 border-red-600' : 'hover:text-gray-600 hover:border-gray-300' }}">
-                        {{ __('chief.received') }} ({{ $disputeCounts['received'] }})
-                    </button>
-                </li>
-                <li class="mr-2">
-                    <button wire:click="setActiveTab('assigned')" 
-                            class="inline-block p-4 {{ $activeTab === 'assigned' ? 'text-red-600 border-b-2 border-red-600' : 'hover:text-gray-600 hover:border-gray-300' }}">
-                        {{ __('chief.assigned') }} ({{ $disputeCounts['assigned'] }})
-                    </button>
-                </li>
-                <li class="mr-2">
-                    <button wire:click="setActiveTab('resolved')" 
-                            class="inline-block p-4 {{ $activeTab === 'resolved' ? 'text-red-600 border-b-2 border-red-600' : 'hover:text-gray-600 hover:border-gray-300' }}">
-                        {{ __('chief.solved') }} ({{ $disputeCounts['resolved'] }})
-                    </button>
-                </li>
-                <li class="flex-1"></li>
-                <li>
-                    <div class="ml-auto w-full block mt-2 mr-2 items-center h-full">
-                        <livewire:search />
-                    </div>
-                </li>
+                <button wire:click="setActiveTab('all')" 
+                    class="inline-block p-4 {{ $activeTab === 'all' ? 'text-red-600 border-b-2 border-red-600' : 'hover:text-gray-600 hover:border-gray-300' }}">
+                {{ __('chief.all') }} ({{ $disputeCounts['all'] }})
+            </button>
+        </li>
+        <li class="mr-2">
+            <button wire:click="setActiveTab('received')" 
+                    class="inline-block p-4 {{ $activeTab === 'received' ? 'text-red-600 border-b-2 border-red-600' : 'hover:text-gray-600 hover:border-gray-300' }}">
+                {{ __('chief.received') }} ({{ $disputeCounts['received'] }})
+            </button>
+        </li>
+        <li class="mr-2">
+            <button wire:click="setActiveTab('assigned')" 
+                    class="inline-block p-4 {{ $activeTab === 'assigned' ? 'text-red-600 border-b-2 border-red-600' : 'hover:text-gray-600 hover:border-gray-300' }}">
+                {{ __('chief.assigned') }} ({{ $disputeCounts['assigned'] }})
+            </button>
+        </li>
+        <li class="mr-2">
+            <button wire:click="setActiveTab('resolved')" 
+                    class="inline-block p-4 {{ $activeTab === 'resolved' ? 'text-red-600 border-b-2 border-red-600' : 'hover:text-gray-600 hover:border-gray-300' }}">
+                {{ __('chief.solved') }} ({{ $disputeCounts['resolved'] }})
+            </button>
+        </li>
+
+        {{-- Filler to push search to the right --}}
+        <li class="flex-1"></li>
+
+        {{-- Livewire Search with full width --}}
+        <li class="flex-1 ml-auto mt-2 mr-2">
+            <livewire:search />
+        </li>
             </ul>
         </div>
+
 
         <!-- Main container with responsive flex -->
         <div class="flex flex-col md:flex-row gap-4 px-2">

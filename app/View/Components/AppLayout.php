@@ -10,6 +10,16 @@ class AppLayout extends Component
     /**
      * Get the view / contents that represents the component.
      */
+    public $title;
+
+    public function __construct(string $title = "Page Title"){
+        $this->title = $title;
+    }
+
+
+
+
+
     public function render(): View
     {
         return view('layouts.app');

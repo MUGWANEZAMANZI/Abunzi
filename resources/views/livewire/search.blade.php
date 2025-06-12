@@ -1,30 +1,36 @@
-<div>
-    <input type="text" class="p-1 rounded-md" placeholder="Shakisha" wire:model.live.debounce="searchDispute">
+<div class="relative z-40">
+
+    <input type="text" class="p-1 rounded-md w-full" placeholder="Shakisha" wire:model.live="searchDispute">
+
     <button class="text-white p-1 text-xl bg-indigo-400 rounded disabled:opacity-20"
         wire:click.prevent="clear()"
         {{ empty($searchDispute) ? 'disabled' : '' }}
-        >
+    >
         Siba
     </button>
-    <div>
-         @if (Str::length($searchDispute) > 0) 
-            <div class="w-full bg-white shadow rounded p-2 mt-2">
-                <h1 class="font-bold mb-2">Results</h1>
-                <ul> 
-                        <li class="text-blue-400">
-                            
-                            <a href="search/{{ $users->id }}">
-                               <span> {{ $users->name }} </span>
-                               <span class="text-gray-500 bg-green-200 rounded ml-5"> {{ $users->role }} </span>
-                            </a>
-                        </li>
-                   
 
-
-                    </ul>
-        {{-- @else
-            <div class="text-red-400 mt-2">Nta makuru ahari</div>
-        @endif --}}
-        @endif
-    </div>
+    @if (Str::length($searchDispute) > 0)
+        <div class="absolute top-full left-0 w-full bg-white shadow-xl rounded p-2 mt-2 z-50 max-h-60 overflow-y-auto border border-gray-200">
+            <h1 class="font-bold mb-2 text-gray-700">Results</h1>
+            <ul class="w-full">
+                @forelse($users as $user)
+                    <li class="text-blue-400 border-b border-gray-100 py-1 hover:bg-gray-50">
+                        <a href="search/{{ $user['id'] }}" class="flex items-center justify-between">
+                            <span class="w-1/3 text-left bg-blue-500 text-white px-2 py-0.5 rounded">
+                                {{ $user['identification'] }}
+                            </span>
+                            <span class="w-1/3 text-center bg-yellow-400 text-black px-2 py-0.5 rounded">
+                                {{ $user['name'] }}
+                            </span>
+                            <span class="w-1/3 text-right bg-red-500 text-gray-500 px-2 py-0.5 rounded">
+                                {{ $user['role'] }}
+                            </span>
+                        </a>
+                    </li>
+                @empty
+                    <li class="text-gray-500 italic">Nta bisubizo bibonetse.</li>
+                @endforelse
+            </ul>
+        </div>
+    @endif
 </div>

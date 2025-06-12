@@ -2,12 +2,14 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\Dispute;
 use Illuminate\Support\Facades\Log;
 
+#[Title('Search')]
 class Search extends Component
 {
     #[Validate('required')]
@@ -24,26 +26,18 @@ class Search extends Component
 
         $users = User::where("identification", "like", "{$value}%")->get();
 
-        if(!$users){
+        if($users->isNotEmpty()){
+            foreach ($users as $user) {
+                Log::info("User found: {$user->id} - {$user->name}");
+            }
+        } else {
             Log::info("No user found for search: {$value}");
             $this->disputes = [];
             return;
         }
 
-        Log::info("User found: {$users->id} - {$users->name}");
-
-        // $disputes = Dispute::where("citizen_id", $user->id)->get();
-
-        // if($disputes->isEmpty()) {
-        //     Log::info("No disputes found for user ID: {$user->id}");
-        // } else {
-        //     Log::info("Found " . $disputes->count() . " disputes for user ID: {$user->id}");
-        // }
-
-        // $this->disputes = $disputes;
-
-        //REturning an array of users
-        $this->users = $users;
+        //returning an array of users
+        $this->users = $users->toArray();
 
     }
 

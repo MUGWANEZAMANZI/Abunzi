@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Dispute;
 
 
-#[Title("User Details")]
+
 class ShowUser extends Component
 {
     public User $user;
@@ -29,5 +29,7 @@ class ShowUser extends Component
     public function render()
     {
         return view('livewire.show-user', ['user' => $this->user, 'disputes' => $this->disputes, 'lastActivity' => $this->lastActivity]);
+            //->extends('layouts.app')
+            //->section('content');
     }
 }

@@ -1,5 +1,5 @@
 <div>
-    <x-app-layout>
+    <x-app-layout :title="'Justice Dashboard'" :header="__('Justice Dashboard')">
         <x-slot name="title">
             Justice Dashboard
         </x-slot>
