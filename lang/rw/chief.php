@@ -12,7 +12,7 @@ return [
     'title' => 'Umutwe',
     'offender' => 'Uregwa',
     'date' => 'Itariki',
-    'status' => 'Imiterere',
+    'status' => 'Sitati',
     'id' => 'Irangamuntu',
     'name' => 'Izina ry\'Urega',
 ];

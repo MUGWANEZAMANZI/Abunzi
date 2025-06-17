@@ -1,17 +1,17 @@
 <div class="relative z-40">
 
-    <input type="text" class="p-1 rounded-md w-full" placeholder="Shakisha" wire:model.live="searchDispute">
+    <input type="text" class="p-1 rounded-md w-full" placeholder="{{ __('search.placeholder') }}" wire:model.live="searchDispute">
 
-    <button class="text-white p-1 text-xl bg-indigo-400 rounded disabled:opacity-20"
+    <button class="text-white p-1 text-xl bg-blue-400 rounded disabled:opacity-20"
         wire:click.prevent="clear()"
         {{ empty($searchDispute) ? 'disabled' : '' }}
     >
-        Siba
+        {{ __('search.clear') }}
     </button>
 
     @if (Str::length($searchDispute) > 0)
         <div class="absolute top-full left-0 w-full bg-white shadow-xl rounded p-2 mt-2 z-50 max-h-60 overflow-y-auto border border-gray-200">
-            <h1 class="font-bold mb-2 text-gray-700">Results</h1>
+            <h1 class="font-bold mb-2 text-gray-700">{{ __('search.results') }}</h1>
             <ul class="w-full">
                 @forelse($users as $user)
                     <li class="text-blue-400 border-b border-gray-100 py-1 hover:bg-gray-50">
@@ -28,7 +28,7 @@
                         </a>
                     </li>
                 @empty
-                    <li class="text-gray-500 italic">Nta bisubizo bibonetse.</li>
+                    <li class="text-gray-500 italic">{{ __('search.no_results') }}</li>
                 @endforelse
             </ul>
         </div>

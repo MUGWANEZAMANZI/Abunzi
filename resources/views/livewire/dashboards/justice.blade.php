@@ -55,7 +55,7 @@
                             <div>
                                 <h4 class="font-semibold text-green-600 dark:text-green-400">{{ __('justice-dash.complainant') }}</h4>
                                 <p>
-                                    {{ $names }} - {{ $emails }}<br>
+                                    {{ $assignment->dispute->citizen->name }} - {{ $assignment->dispute->citizen->email }}<br>
                                     <small class="text-xs text-gray-500 dark:text-gray-400">Phone: {{ $assignment->dispute->citizen->phone }}</small>
                                 </p>
                             </div>

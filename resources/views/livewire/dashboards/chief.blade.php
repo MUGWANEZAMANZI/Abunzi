@@ -63,8 +63,8 @@
                         <tr class="hover:bg-slate-500 text-center cursor-pointer" wire:click="selectDispute({{$dispute->id}})">
                             <td class="p-2">{{ $dispute->id }}</td>
                             <td class="p-2">{{ $dispute->title }}</td>
+                             <td class="p-2">{{ $user?->identification }} </td>
                             <td class="p-2">{{ $user?->name }}</td>
-                            <td class="p-2">{{ $user?->identification }} </td>
                             <td class="p-2">{{ $dispute->offender_name }}</td>
                             <td class="p-2">{{ $dispute->created_at->format('Y-m-d H:i') }}</td>
                             <td class="p-2">
