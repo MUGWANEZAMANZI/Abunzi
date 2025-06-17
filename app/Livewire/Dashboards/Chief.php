@@ -95,8 +95,8 @@ class Chief extends Component
     public function getDisputesForTab()
     {
         return match($this->activeTab) {
-            'received' => Dispute::where('status', 'Cyoherejwe'),
-            'assigned' => Dispute::where('status', 'Kizasomwa'),
+            'received' => Dispute::where('status', 'cyoherejwe'),
+            'assigned' => Dispute::where('status', 'kizasomwa'),
             // 'inProgress' => Dispute::where('status', 'Kiraburanishwa'),
             'resolved' => Dispute::where('status', 'cyakemutse'),
             default => Dispute::query(),
