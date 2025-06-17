@@ -67,12 +67,11 @@ class Chief extends Component
 
     public function loadDisputes()
     {
-        $this->assigned = Dispute::where('status', 'Kizasomwa')->get();
-        $this->recieved = Dispute::where('status', 'Cyoherejwe')->get();
+        $this->assigned = Dispute::where('status', 'kizasomwa')->get();
+        $this->recieved = Dispute::where('status', 'cyoherejwe')->get();
         $this->resolved = Dispute::where('status', 'cyakemutse')->get();
-        $this->inProgress = Dispute::where('status', 'Kiraburanishwa')->get();
         // Map citizen_id from disputes to the corresponding user records
-        $citizenIds = Dispute::where('status', 'Kizasomwa')->pluck('citizen_id')->unique();
+        $citizenIds = Dispute::where('status', 'kizasomwa')->pluck('citizen_id')->unique();
 
         $this->user = User::whereIn('id', $citizenIds)->first();
 
