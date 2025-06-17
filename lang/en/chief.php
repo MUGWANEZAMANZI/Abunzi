@@ -11,4 +11,6 @@ return [
     'offender' => 'Offender',
     'date' => 'Date',
     'status' => 'Cuurent Status',
+    'id' => 'Identification',
+    'name' => 'Victim Name'
 ];

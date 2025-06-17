@@ -1,10 +1,7 @@
 <div>
     <x-app-layout>
-        {{-- <x-slot name="header">    
-            <div class="mt-4 text-center">
-                <h1 class="text-2xl font-bold text-red-500">Saranganya ibirego</h1>
-            </div>
-        </x-slot> --}}
+        <x-slot name="header">    
+        </x-slot> 
 
         <!-- Tabs -->
         <div class="mb-4 border-b border-gray-200">
@@ -54,6 +51,8 @@
                         <tr class="bg-gray-500 text-white">
                             <th class="p-2">{{ __('chief.no') }}</th>
                             <th class="p-2">{{ __('chief.title') }}</th>
+                            <th class="p-2">{{ __('chief.id') }}</th>
+                            <th class="p-2">{{ __('chief.name') }}</th>
                             <th class="p-2">{{ __('chief.offender') }}</th>
                             <th class="p-2">{{ __('chief.date') }}</th>
                             <th class="p-2">{{ __('chief.status') }}</th>
@@ -64,6 +63,8 @@
                         <tr class="hover:bg-slate-500 text-center cursor-pointer" wire:click="selectDispute({{$dispute->id}})">
                             <td class="p-2">{{ $dispute->id }}</td>
                             <td class="p-2">{{ $dispute->title }}</td>
+                            <td class="p-2">{{ $user?->name }}</td>
+                            <td class="p-2">{{ $user?->identification }} </td>
                             <td class="p-2">{{ $dispute->offender_name }}</td>
                             <td class="p-2">{{ $dispute->created_at->format('Y-m-d H:i') }}</td>
                             <td class="p-2">

@@ -46,6 +46,8 @@ class Chief extends Component
         'meetingDate.date' => 'Itariki y\'inama igomba kuba itariki nyayo.',
         'meetingDate.after' => 'Itariki y\'inama igomba kuba nyuma y\'iki gihe.',
     ];
+    
+    public ?User $user = null;
 
 
 
@@ -54,11 +56,13 @@ class Chief extends Component
     {
         //$this->smsService = app(SmsNotificationService::class);
         $this->emailService = app(EmailNotificationService::class);
+
     }
     public function mount()
     {
         $this->loadDisputes();
         $this->justices = User::where('role', 'justice')->get();
+
     }
 
     public function loadDisputes()
@@ -67,6 +71,18 @@ class Chief extends Component
         $this->recieved = Dispute::where('status', 'Cyoherejwe')->get();
         $this->resolved = Dispute::where('status', 'cyakemutse')->get();
         $this->inProgress = Dispute::where('status', 'Kiraburanishwa')->get();
+        // Map citizen_id from disputes to the corresponding user records
+        $citizenIds = Dispute::where('status', 'Kizasomwa')->pluck('citizen_id')->unique();
+
+        $this->user = User::whereIn('id', $citizenIds)->first();
+
+        Log::info('User loaded for dispute:', [
+            'Citizen Id ' => $citizenIds,
+
+            'user_id' => $this->user?->id,
+            'dispute_id' => $this->selectedDispute?->id,
+        ]);
+
         $this->dispatch('disputesUpdated');
     }
 
@@ -96,6 +112,7 @@ class Chief extends Component
     {
         $this->selectedDispute = Dispute::find($id);
         $this->dispatch('open-dispute-modal');
+
     }
 
     public function assignDispute()

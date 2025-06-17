@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>{{ $title ?? 'Abunzi App' }}</title>c
+        <title>{{ $title ?? 'Abunzi App' }}</title>
     </head>
     <body>
         {{ $slot }}

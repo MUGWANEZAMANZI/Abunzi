@@ -9,8 +9,10 @@ return [
     'assigned' => 'Byahawe Abunzi',
     'solved' => 'Byakemuwe',
     'no' => 'No',
-    'title' => 'Title',
+    'title' => 'Umutwe',
     'offender' => 'Uregwa',
     'date' => 'Itariki',
     'status' => 'Imiterere',
+    'id' => 'Irangamuntu',
+    'name' => 'Izina ry\'Urega',
 ];

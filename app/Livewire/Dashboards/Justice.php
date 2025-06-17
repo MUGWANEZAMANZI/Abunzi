@@ -49,6 +49,13 @@ class Justice extends Component
             ->where('justice_id', $justiceId)
             ->whereHas('dispute', fn ($q) => $q->where('status', 'kizasomwa'))
             ->get();
+        $names = $this->TobeSolved->pluck('dispute.citizen.name')->join(', ');
+        $emails = $this->TobeSolved->pluck('dispute.citizen.email')->join(', ');
+        Log::info('Justice Dashboard mounted', [
+            'justice_id' => $justiceId,
+            'citizen_names' => $names,
+            'citizen_emails' => $emails,
+        ]);
 
     }
 
@@ -187,6 +194,9 @@ class Justice extends Component
     $this->reset(['form', 'showPostponeModal']);
     session()->flash('message', 'Inama yasubitswe neza.');
 
+    
+
+
 
     // Notify involved parties about the postponement
     $emailSent = $this->emailService->notifyDisputePostponed(
@@ -214,9 +224,6 @@ class Justice extends Component
     } else {
         Log::error('Failed to send postponement notification email.');
     }
-
-
-
 
 
 }
