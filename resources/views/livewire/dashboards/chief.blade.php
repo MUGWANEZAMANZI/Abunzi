@@ -73,8 +73,8 @@
                             <td class="p-2">{{ $dispute->created_at->format('Y-m-d H:i') }}</td>
                             <td class="p-2">
                                 <span class="px-2 py-1 rounded-full text-xs
-                                    @if($dispute->status === 'Cyoherejwe') bg-yellow-100 text-yellow-800
-                                    @elseif($dispute->status === 'Kizasomwa') bg-blue-100 text-blue-800
+                                    @if($dispute->status === 'cyoherejwe') bg-yellow-100 text-yellow-800
+                                    @elseif($dispute->status === 'kizasomwa') bg-blue-100 text-blue-800
                                     @elseif($dispute->status === 'cyakemutse') bg-green-100 text-green-800
                                     @endif">
                                     {{ $dispute->status }}
