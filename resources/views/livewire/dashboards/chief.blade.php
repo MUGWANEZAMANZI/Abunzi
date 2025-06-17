@@ -61,7 +61,8 @@
                     <tbody>
                         @foreach ($disputes as $dispute)
                         <tr 
-                            class="hover:bg-slate-500 text-center {{ $dispute->status === 'cyakemutse' ? 'opacity-20 cursor-not-allowed' : 'cursor-pointer' }}" 
+                            class="hover:bg-slate-500 text-center {{ $dispute->status === 'cyakemutse' || $dispute->status === 'kizasomwa' ? 'opacity-20 cursor-not-allowed' : 'cursor-pointer' }}"
+
                             @if($dispute->status !== 'cyakemutse') wire:click="selectDispute({{ $dispute->id }})" @endif
                         >
                             <td class="p-2">{{ $dispute->id }}</td>
