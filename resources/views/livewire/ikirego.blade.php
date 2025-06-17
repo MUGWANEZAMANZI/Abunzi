@@ -104,7 +104,6 @@
                 <label class="block text-white mb-1 text-sm sm:text-base">{{ __('ikirego.mail') }}</label>
                 <input type="email" name="offender_mail" wire:model.live="offender_mail" class="h-8 sm:h-10 rounded-md w-full px-2 text-sm sm:text-base" placeholder="Andika imeli y'uwo urega">
                 @error('offender_mail') <span class="text-red-500 text-xs sm:text-sm">{{ $message }}</span> @enderror
-                <p>Current email: {{ $offender_mail }}</p>
             </div>
 
             <div>
@@ -123,8 +122,8 @@
                 @if($isEditing)
                 <button type="button" wire:click="delete" wire:confirm="Uzi neza ko ushaka gusiba iki kirego?" class="w-full sm:w-24 p-2 rounded-md text-base sm:text-lg bg-red-300 hover:bg-red-700 transition-colors">{{ __('ikirego.clear') }}</button>
                 @endif
-                <button type="button" wire:click="draft"   wire:wire:loading="disabled"  class="w-full disabled:opacity-30 sm:w-24 p-2 rounded-md text-base sm:text-lg bg-yellow-200 hover:bg-yellow-500 transition-colors">{{ __('ikirego.draft') }}</button>
-                <button type="submit" wire:wire:loading="disabled"  class="w-full disabled:opacity-30 sm:w-24 p-2 rounded-md text-base sm:text-lg bg-green-200 hover:bg-green-700 transition-colors">{{ __('ikirego.save') }}</button>
+                <button type="button" wire:click="draft"   wire:loading.attr="disabled"  class="w-full disabled:opacity-20 sm:w-24 p-2 rounded-md text-base sm:text-lg bg-yellow-200 hover:bg-yellow-500 transition-colors">{{ __('ikirego.draft') }}</button>
+                <button type="submit" wire:loading.attr="disabled"  class="w-full disabled:opacity-20 sm:w-24 p-2 rounded-md text-base sm:text-lg bg-green-200 hover:bg-green-700 transition-colors">{{ __('ikirego.save') }}</button>
             </div>
         </form>
     </div>

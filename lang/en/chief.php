@@ -10,7 +10,9 @@ return [
     'title' => 'Title',
     'offender' => 'Offender',
     'date' => 'Date',
+    'action' => 'Action',
     'status' => 'Status',
     'id' => 'Identification',
-    'name' => 'Victim Name'
+    'name' => 'Victim Name',
+    'download' => 'Download Report',
 ];

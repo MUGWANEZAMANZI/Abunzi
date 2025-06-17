@@ -149,7 +149,7 @@
                                     {{ __('justice-dash.cancel') }}
                                 </button>
                                 <button wire:loading.attr="disabled" wire:click="submitResolution({{ $assignment->id }})"
-                                        class="bg-blue-600 disabled:opacity-30 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                                        class="bg-blue-600 disabled:opacity-20 hover:bg-blue-700 text-white px-4 py-2 rounded">
                                     {{ __('justice-dash.confirm') }}
                                 </button>
                             

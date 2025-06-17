@@ -17,7 +17,7 @@ return [
     'save' => 'Ohereza',
     'draft' => 'Inyandiko',
     'clear' => 'Siba',
-    'holder' => 'Andika amazina yabo hano, atandukanyijwe n’utwsitso (,)',
+    'holder' => 'Andika amazina yabo hano, atandukanyijwe n’utwitso (,)',
     'cprovince' => 'Hitamo Intara',
     'cdistrict' => 'Hitamo Akarere',
     'csector' => 'Hitamo Umurenge',

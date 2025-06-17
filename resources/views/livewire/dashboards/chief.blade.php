@@ -60,10 +60,13 @@
                     </thead>
                     <tbody>
                         @foreach ($disputes as $dispute)
-                        <tr class="hover:bg-slate-500 text-center cursor-pointer" wire:click="selectDispute({{$dispute->id}})">
+                        <tr 
+                            class="hover:bg-slate-500 text-center {{ $dispute->status === 'cyakemutse' ? 'opacity-20 cursor-not-allowed' : 'cursor-pointer' }}" 
+                            @if($dispute->status !== 'cyakemutse') wire:click="selectDispute({{ $dispute->id }})" @endif
+                        >
                             <td class="p-2">{{ $dispute->id }}</td>
                             <td class="p-2">{{ $dispute->title }}</td>
-                             <td class="p-2">{{ $user?->identification }} </td>
+                            <td class="p-2">{{ $user?->identification }}</td>
                             <td class="p-2">{{ $user?->name }}</td>
                             <td class="p-2">{{ $dispute->offender_name }}</td>
                             <td class="p-2">{{ $dispute->created_at->format('Y-m-d H:i') }}</td>
@@ -75,6 +78,14 @@
                                     @endif">
                                     {{ $dispute->status }}
                                 </span>
+
+                                @if($dispute->status === 'cyakemutse')
+                                    <a href="{{ route('dispute.report.download', $dispute->id) }}" 
+                                    class="ml-2 inline-block bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 text-xs"
+                                    title="Download report">
+                                        {{ __('chief.download') }}
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
@@ -181,7 +192,7 @@
                         <input type="datetime-local" wire:model="meetingDate" class="w-full border p-1" />
                     </div>
 
-                    <button wire:loading.attr="disabled" wire:click="assignDispute"  class="bg-green-600 disabled:opacity-30 text-white px-4 py-1 rounded">Emeza</button>
+                    <button wire:loading.attr="disabled" wire:click="assignDispute"  class="bg-green-600 disabled:opacity-20 text-white px-4 py-1 rounded">Emeza</button>
                     <button x-on:click="showModal = false"  class="ml-2 bg-gray-400 px-3 py-1 rounded">Hagarika</button>
                 </div>
             </div>
