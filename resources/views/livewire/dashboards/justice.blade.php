@@ -92,6 +92,8 @@
                                 </button>
                             </div>
                         </div>
+                        <livewire:a-i-mbaza />
+
                     </div>
 
                     @if ($showModal === $assignment->id)
