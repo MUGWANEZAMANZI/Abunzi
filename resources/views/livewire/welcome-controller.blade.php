@@ -58,7 +58,7 @@
                 </div>
             </section>
             <div class="mt-20">
-                <livewire:aimbaza />
+                <livewire:Aimbaza />
             </div>
         </main>
         
