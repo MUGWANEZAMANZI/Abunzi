@@ -14,10 +14,8 @@
         "laravel/jetstream": "^5.3",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
-        "laravel/vonage-notification-channel": "^3.3",
         "livewire/livewire": "^3.0",
-        "rubix/ml": "^2.5",
-        "twilio/sdk": "^8.6"
+        "rubix/ml": "^2.5"
     },
     "require-dev": {
         "beyondcode/laravel-er-diagram-generator": "^4.0",
