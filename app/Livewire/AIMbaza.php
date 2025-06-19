@@ -9,7 +9,7 @@ use Rubix\ML\Persisters\Filesystem as ModelFilesystem;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-class AIMbaza extends Component
+class Aimbaza extends Component
 {
     public bool $isClicked = false;
     public string $prompt = '';
