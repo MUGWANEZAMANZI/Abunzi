@@ -157,6 +157,6 @@ public function typePredictionCharacter()
      
     public function render()
     {
-        return view('livewire.a-i-mbaza');
+        return view('livewire.aimbaza');
     }
 }
