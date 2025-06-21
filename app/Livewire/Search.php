@@ -15,7 +15,16 @@ class Search extends Component
     #[Validate('required')]
     public String $searchDispute = '';
     public $disputes = [];
-    public $users = [];
+    public $users = '';
+
+     #[Validate('date')]
+    public $searchDateFrom = '';
+
+    public $searchDateTo = '';
+   
+
+
+
 
 
     public function updatedSearchDispute($value)
@@ -23,12 +32,27 @@ class Search extends Component
         $this->reset("users");
 
         $this->validate();
+        
 
-        $users = User::where("identification", "like", "{$value}%")->get();
 
+
+        $users = User::with(['disputes' => function ($query) {
+        $query->when($this->searchDateFrom, fn($q) => $q->where('created_at', '>=', $this->searchDateFrom))
+              ->when($this->searchDateTo, fn($q) => $q->where('created_at', '<=', $this->searchDateTo));
+            }])
+            ->where("identification", "like", "{$value}%")
+            ->whereNotIn("role", ["justice", "chief"])
+            ->get();
+
+
+        
+         
+        
+            
         if($users->isNotEmpty()){
             foreach ($users as $user) {
                 Log::info("User found: {$user->id} - {$user->name}");
+                Log::info("Disputes found for user {$user->id}: " . ($user->disputes ? $user->disputes->count() : 0));
             }
         } else {
             Log::info("No user found for search: {$value}");
@@ -36,8 +60,8 @@ class Search extends Component
             return;
         }
 
-        //returning an array of users
-        $this->users = $users->toArray();
+        //returning an object with disputes
+        $this->users = $users;
 
     }
 

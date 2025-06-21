@@ -31,8 +31,7 @@
             </button>
         </li>
 
-        {{-- Filler to push search to the right --}}
-        <li class="flex-1"></li>
+        
 
         {{-- Livewire Search with full width --}}
         <li class="flex-1 ml-auto mt-2 mr-2">
@@ -63,7 +62,7 @@
                         <tr 
                             class="hover:bg-slate-500 text-center {{ $dispute->status === 'cyakemutse' || $dispute->status === 'kizasomwa' || $dispute->status === 'kirabitse' ? 'opacity-20 cursor-not-allowed' : 'cursor-pointer' }}"
 
-                            @if($dispute->status !== 'cyakemutse' || $dispute->status !== 'kizasomwa' || $dispute->status !== 'kirabitse') wire:click="selectDispute({{ $dispute->id }})" @endif
+                            @if($dispute->status !== 'cyakemutse' && $dispute->status !== 'kizasomwa' && $dispute->status !== 'kirabitse') wire:click="selectDispute({{ $dispute->id }})" @endif
                         >
                             <td class="p-2">{{ $dispute->id }}</td>
                             <td class="p-2">{{ $dispute->title }}</td>

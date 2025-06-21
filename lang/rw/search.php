@@ -7,4 +7,8 @@ return [
     'clear' => 'Siba',
     'results' => 'Ibisubizo',
     'no_results' => 'Nta muturage wabonetse ufite iyo ndangamuntu',
+    'date_from' => 'Kuva',
+    'date_to' => 'Kugeza',
+    'disputes' => 'Ibirego bye',
+    'no_disputes' => 'Ntakirego afite',
 ];

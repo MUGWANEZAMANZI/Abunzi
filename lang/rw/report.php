@@ -3,7 +3,7 @@ return [
     'title' => 'Raporo',
     'republic' => 'Repubulika y’u Rwanda',
     'ministry' => "Minisiteri y'Ubutabera",
-    'report_title' => 'Raporo y’Umwanzuro w’Ikemurwa ry’Ikibazo',
+    'report_title' => 'Raporo y’Umwanzuro w’Ikemurwa ry’Ikirego nimero: ',
     'issue_title' => 'Umutwe w’ikibazo:',
     'raiser' => 'Uwareze:',
     'accused' => 'Uregwa:',
@@ -21,4 +21,5 @@ return [
     'committee_lead' => 'Umuyobozi wa Komite',
     'disclaimer' => 'Iyi raporo ni igihamya cyemewe cy’inama y’ubwunzi yabaye.',
     'software_notice' => 'Raporo itunganyirizwa muri gahunda ya Leta, ishyigikiwe na Abunzi Software.',
+    'identification' => 'Nimero y\'Ikarita ndangamuntu y\'urega'
 ];

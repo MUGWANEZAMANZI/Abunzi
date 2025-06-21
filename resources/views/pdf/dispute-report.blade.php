@@ -74,10 +74,11 @@
         <div><strong>{{ __('report.abunzi') }}</strong></div>
     </div>
 
-    <h2>{{ __('report.report_title') }}</h2>
+    <h2>{{ __('report.report_title') }} {{ $dispute->id }}</h2>
 
     <div class="section"><span class="label">{{ __('report.issue_title') }}</span><div class="content">{{ $dispute->title }}</div></div>
     <div class="section"><span class="label">{{ __('report.raiser') }}</span><div class="content">{{ $dispute->citizen->name ?? 'N/A' }}</div></div>
+    <div class="section"><span class="label">{{ __("report.identification") }}</span><div class="content">{{ $dispute->citizen->identification  }}</div></div>
     <div class="section"><span class="label">{{ __('report.accused') }}</span><div class="content">{{ $dispute->offender_name }}</div></div>
     <div class="section"><span class="label">{{ __('report.location') }}</span><div class="content">{{ $dispute->location_name }}</div></div>
     <div class="section"><span class="label">{{ __('report.meeting_datetime') }}</span><div class="content">{{ \Carbon\Carbon::parse($report->ended_at)->format('Y-m-d H:i') }}</div></div>

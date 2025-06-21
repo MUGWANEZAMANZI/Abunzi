@@ -77,4 +77,12 @@ class User extends Authenticatable //implements MustVerifyEmail
 {
     return $this->phone;
 }
+    
+    public function disputes()
+    {
+        return $this->hasMany(Dispute::class, 'citizen_id');
+    }
+
+
+
 }

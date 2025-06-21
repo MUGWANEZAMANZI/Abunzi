@@ -76,10 +76,9 @@ class Chief extends Component
         $this->user = User::whereIn('id', $citizenIds)->first();
 
         Log::info('User loaded for dispute:', [
-            'Citizen Id ' => $citizenIds,
-
-            'user_id' => $this->user?->id,
-            'dispute_id' => $this->selectedDispute?->id,
+            'citizen_ids' => $citizenIds->toArray(),
+            'user_id' => $this->user ? $this->user->id : 'not found',
+            'dispute_id' => $this->selectedDispute ? $this->selectedDispute->id : 'not selected',
         ]);
 
         $this->dispatch('disputesUpdated');
