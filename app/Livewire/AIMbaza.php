@@ -114,21 +114,21 @@ public function typePredictionCharacter()
         ]);
 
         // Step 6: If confidence is too low (<40%), show "no answer"
-        if ($topProbability < 0.2) {
-            $this->predictionTitle = '';
-            $this->predictionContent = '';
-            $this->currentPredictionResult = "Ntagisubizo cyabonetse. Mwongere mugerageze.";
+        // if ($topProbability < 0.2) {
+        //     $this->predictionTitle = '';
+        //     $this->predictionContent = '';
+        //     $this->currentPredictionResult = "Ntagisubizo cyabonetse. Mwongere mugerageze.";
 
-            $this->predictionTypingIndex = 0;
-            $this->dispatch('start-predict-typing');
-            array_unshift($this->pastPredictions, [
-            'title' => "Ntagisubizo cyabonetse",
-            'content' => "Ntagisubizo cyabonetse. Mwongere mugerageze.",
-        ]);
-            Log::info('Mbaza AI: Low confidence, no answer provided');
-            Log::info('Result: ' . $this->currentPredictionResult);
-            return;
-        }
+        //     $this->predictionTypingIndex = 0;
+        //     $this->dispatch('start-predict-typing');
+        //     array_unshift($this->pastPredictions, [
+        //     'title' => "Ntagisubizo cyabonetse",
+        //     'content' => "Ntagisubizo cyabonetse. Mwongere mugerageze.",
+        // ]);
+        //     Log::info('Mbaza AI: Low confidence, no answer provided');
+        //     Log::info('Result: ' . $this->currentPredictionResult);
+        //     return;
+        // }
 
         // Step 7: Extract title and content from prediction
         $parts = explode('|||', $topClass, 2);

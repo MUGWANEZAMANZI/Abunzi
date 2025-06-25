@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('role')->default('citizen'); // Default role is 'citizen'
             $table->string('passcode')->nullable(); // Optional passcode column for Chiefs
             $table->timestamp('email_verified_at')->nullable();
+            $table->enum('level', ['cell','sector'])->nullable();
+            $table->string('levelName')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
